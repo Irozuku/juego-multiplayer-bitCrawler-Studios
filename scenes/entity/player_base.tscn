@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://bvw2rq8vmhwu7"]
+
+[ext_resource type="Script" path="res://scenes/entity/player_base.gd" id="1_q4hac"]
+[ext_resource type="PackedScene" uid="uid://bqadamua663a5" path="res://scenes/components/hurtbox.tscn" id="2_a2nch"]
+
+[node name="PlayerBase" type="CharacterBody2D"]
+script = ExtResource("1_q4hac")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+
+[node name="Hurtbox" parent="." instance=ExtResource("2_a2nch")]
+
+[editable path="Hurtbox"]
