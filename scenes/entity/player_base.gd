@@ -1,3 +1,4 @@
+class_name PlayerBase
 extends CharacterBody2D
 
 @export var hp: int = 1
