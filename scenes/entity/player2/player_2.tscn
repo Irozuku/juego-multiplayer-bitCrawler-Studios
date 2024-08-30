@@ -1,11 +1,31 @@
-[gd_scene load_steps=3 format=3 uid="uid://cjbpryim23bh"]
+[gd_scene load_steps=6 format=3 uid="uid://cjbpryim23bh"]
 
 [ext_resource type="Script" path="res://scenes/entity/player2/player_2.gd" id="1_kvrq7"]
 [ext_resource type="Texture2D" uid="uid://tw8t38ns0seh" path="res://icon.svg" id="2_dlsrr"]
+[ext_resource type="PackedScene" uid="uid://bqadamua663a5" path="res://scenes/components/hurtbox.tscn" id="2_pp3do"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hugpf"]
+size = Vector2(128, 128)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mn3f6"]
+size = Vector2(128, 128)
 
 [node name="Player2" type="CharacterBody2D"]
 script = ExtResource("1_kvrq7")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(0, 0.0833333, 1, 1)
 texture = ExtResource("2_dlsrr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_hugpf")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+
+[node name="Hurtbox" parent="." instance=ExtResource("2_pp3do")]
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+shape = SubResource("RectangleShape2D_mn3f6")
+
+[editable path="Hurtbox"]
