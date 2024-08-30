@@ -28,4 +28,8 @@ shape = SubResource("RectangleShape2D_xj0qv")
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
 shape = SubResource("RectangleShape2D_tqbdr")
 
+[node name="Hammer" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hammer"]
+
 [editable path="Hurtbox"]

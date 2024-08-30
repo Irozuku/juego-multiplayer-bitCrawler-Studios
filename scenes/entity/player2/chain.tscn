@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b1y2s5frygfa3"]
+
+[ext_resource type="Script" path="res://scenes/entity/player2/chain.gd" id="1_chcln"]
+
+[node name="Chain" type="Line2D"]
+script = ExtResource("1_chcln")
