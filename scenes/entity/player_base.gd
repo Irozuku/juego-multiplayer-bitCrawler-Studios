@@ -16,12 +16,22 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, speed * move_input, acceleration * delta)
 		
 		if Input.is_action_just_pressed("jump"):
-			if is_on_floor():
-				velocity.y = -jump_speed
+			jump()
 			
 		send_position.rpc(position, velocity)
 	move_and_slide()
 	
+
+# Makes the character jump and calls the rpc to send this action
+func jump() -> void:
+	if is_on_floor():
+		velocity.y = -jump_speed
+		_send_jump_action(jump_speed)
+
+# RPC to send the action of jumping with reliable protocol
+@rpc("authority", "call_remote", "reliable")
+func _send_jump_action(jump_speed: int) -> void:
+	velocity.y = -jump_speed
 
 func setup(player_data: Statics.PlayerData) -> void:
 	set_multiplayer_authority(player_data.id)
