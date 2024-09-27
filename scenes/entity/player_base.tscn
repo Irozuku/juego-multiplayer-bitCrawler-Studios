@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://bqadamua663a5" path="res://scenes/components/hurtbox.tscn" id="2_a2nch"]
 
 [node name="PlayerBase" type="CharacterBody2D"]
+collision_mask = 3
 script = ExtResource("1_q4hac")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scenes/entity/player2/player_2.gd" id="1_kvrq7"]
 [ext_resource type="Texture2D" uid="uid://tw8t38ns0seh" path="res://icon.svg" id="2_dlsrr"]
 [ext_resource type="PackedScene" uid="uid://bqadamua663a5" path="res://scenes/components/hurtbox.tscn" id="2_pp3do"]
-[ext_resource type="PackedScene" uid="uid://b7urw4g0inma" path="res://scenes/hook/chain.tscn" id="4_o7odu"]
+[ext_resource type="PackedScene" uid="uid://b7urw4g0inma" path="res://scenes/hook/Chain.tscn" id="4_o7odu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hugpf"]
 size = Vector2(128, 128)
@@ -12,8 +12,11 @@ size = Vector2(128, 128)
 size = Vector2(128, 128)
 
 [node name="Player2" type="CharacterBody2D"]
-collision_mask = 3
 script = ExtResource("1_kvrq7")
+hp = null
+speed = null
+acceleration = null
+jump_speed = null
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_dlsrr")
