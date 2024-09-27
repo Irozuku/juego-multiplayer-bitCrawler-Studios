@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://bhhe2dlo7jpo"]
+[gd_scene load_steps=32 format=3 uid="uid://bhhe2dlo7jpo"]
 
 [ext_resource type="Script" path="res://scenes/entity/player1/player_1.gd" id="1_3nl45"]
 [ext_resource type="Texture2D" uid="uid://dsprl50i5bwj8" path="res://resources/animation/Pawn_Blue.png" id="2_3c0d8"]
@@ -203,6 +203,9 @@ graph_offset = Vector2(0, -63.6449)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tqbdr"]
 size = Vector2(44, 48)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_au5lv"]
+size = Vector2(30, 50)
+
 [node name="Player1" type="CharacterBody2D"]
 collision_mask = 3
 script = ExtResource("1_3nl45")
@@ -236,8 +239,10 @@ position = Vector2(2, 0)
 shape = SubResource("RectangleShape2D_tqbdr")
 
 [node name="Hammer" type="Area2D" parent="."]
+position = Vector2(40, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hammer"]
+shape = SubResource("RectangleShape2D_au5lv")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(0.8, 0.8)
