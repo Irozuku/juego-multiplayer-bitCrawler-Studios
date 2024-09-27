@@ -2,8 +2,8 @@ class_name PlayerBase
 extends CharacterBody2D
 
 @export var hp: int = 1
-@export var speed: float = 400
-@export var acceleration: float = 500
+@export var speed: float = 600
+@export var acceleration: float = 1000
 @export var jump_speed: int = 500
 
 
