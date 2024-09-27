@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scenes/entity/player2/player_2.gd" id="1_kvrq7"]
 [ext_resource type="Texture2D" uid="uid://tw8t38ns0seh" path="res://icon.svg" id="2_dlsrr"]
 [ext_resource type="PackedScene" uid="uid://bqadamua663a5" path="res://scenes/components/hurtbox.tscn" id="2_pp3do"]
-[ext_resource type="PackedScene" uid="uid://c5m7vpv7vn3e5" path="res://scenes/hook/chain.tscn" id="4_o7odu"]
+[ext_resource type="PackedScene" uid="uid://b7urw4g0inma" path="res://scenes/hook/chain.tscn" id="4_o7odu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hugpf"]
 size = Vector2(128, 128)
@@ -31,7 +31,5 @@ shape = SubResource("RectangleShape2D_hugpf")
 shape = SubResource("RectangleShape2D_mn3f6")
 
 [node name="Chain" parent="." instance=ExtResource("4_o7odu")]
-
-[node name="Camera2D" type="Camera2D" parent="."]
 
 [editable path="Hurtbox"]

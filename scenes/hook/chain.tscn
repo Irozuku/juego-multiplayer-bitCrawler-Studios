@@ -1,8 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://b7urw4g0inma"]
+[gd_scene load_steps=5 format=3 uid="uid://c5m7vpv7vn3e5"]
 
 [ext_resource type="Script" path="res://scenes/hook/chain.gd" id="1_2htkw"]
-[ext_resource type="Texture2D" uid="uid://cw3laxl4gncgv" path="res://scenes/assets/hook/link.png" id="2_f62vt"]
-[ext_resource type="Texture2D" uid="uid://32pptxwjbciy" path="res://scenes/assets/hook/hook.png" id="3_ux47c"]
+[ext_resource type="Texture2D" path="res://scenes/assets/hook/link.png" id="2_f62vt"]
+[ext_resource type="Texture2D" path="res://scenes/assets/hook/hook.png" id="3_ux47c"]
 
 [sub_resource type="CapsuleShape2D" id="1"]
 radius = 4.40329
