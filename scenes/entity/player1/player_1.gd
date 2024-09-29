@@ -13,22 +13,18 @@ func _physics_process(delta: float) -> void:
 	update_animation()
 	if is_multiplayer_authority():
 		var move_input = Input.get_axis("move_left", "move_right")
-		if move_input < 0:
-			print("flip")
-		if move_input > 0:
-			print("flip")
 
 func _input(event: InputEvent) -> void:
 	if is_multiplayer_authority():
 		if Input.is_action_just_pressed("hammer1"):
-			#play anim
-			check_breakable()
+			rpc("check_breakable")
 		#if Input.is_action_just_pressed("hammer2"):
 			#when hammer2 pressed, make a greater jump, if in contact with p2, make him jumo too
 			#return
 
 @rpc("any_peer", "call_local", "reliable")
 func check_breakable():
+	animation_tree["parameters/conditions/hammer"] = true
 	if (breakable != null):
 		breakable.destroy()
 
@@ -47,3 +43,7 @@ func update_animation():
 	else:
 		animation_tree["parameters/conditions/idle"] = false
 		animation_tree["parameters/conditions/is_moving"] = true
+
+func _on_animation_tree_animation_finished(anim_name):
+	if anim_name == "hammer":
+		animation_tree["parameters/conditions/hammer"] = false

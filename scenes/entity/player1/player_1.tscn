@@ -198,7 +198,7 @@ states/Start/position = Vector2(230, -10)
 states/Walk/node = SubResource("AnimationNodeStateMachine_qqxn3")
 states/Walk/position = Vector2(737, -10)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_kytj6"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_m5ffu"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_02f0b"), "Idle", "Hammer", SubResource("AnimationNodeStateMachineTransition_nm02j"), "Hammer", "Idle", SubResource("AnimationNodeStateMachineTransition_n41xi"), "Hammer", "Walk", SubResource("AnimationNodeStateMachineTransition_26w66"), "Walk", "Hammer", SubResource("AnimationNodeStateMachineTransition_shjqg")]
-graph_offset = Vector2(0, -63.6449)
+graph_offset = Vector2(-145.247, -23.526)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tqbdr"]
 size = Vector2(44, 48)
@@ -245,5 +245,9 @@ shape = SubResource("RectangleShape2D_au5lv")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(0.8, 0.8)
+
+[connection signal="animation_finished" from="AnimationTree" to="." method="_on_animation_tree_animation_finished"]
+[connection signal="area_entered" from="Hammer" to="." method="_on_hammer_area_entered"]
+[connection signal="area_exited" from="Hammer" to="." method="_on_hammer_area_exited"]
 
 [editable path="Hurtbox"]
