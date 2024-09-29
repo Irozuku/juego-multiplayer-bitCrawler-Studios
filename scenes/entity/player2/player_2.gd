@@ -30,8 +30,6 @@ func _physics_process(delta: float) -> void:
 			# Not hooked -> no chain velocity
 			chain_velocity = Vector2(0,0)
 		velocity += chain_velocity
-		send_chain_data.rpc(chain.global_position, chain.global_rotation)
-
 
 func _input(event: InputEvent) -> void:
 	if is_multiplayer_authority():
@@ -42,19 +40,7 @@ func _input(event: InputEvent) -> void:
 			else:
 				# We released the mouse -> release()
 				chain.release()
-			send_chain_visibility.rpc(event.pressed, get_local_mouse_position())
 
-@rpc("authority", "call_remote")
-func send_chain_data(chain_position: Vector2, chain_rotation: float):
-	Debug.log("send_chain_data", 10)
-	Debug.log(chain.global_position, 10)
-	Debug.log(chain_position, 10)
-	chain.global_position = chain_position
-
-@rpc("authority", "call_remote", "reliable")
-func send_chain_visibility(visible: bool, dir: Vector2):
-	chain.flying = visible
-	chain.direction = dir.normalized()
 
 #when chain pressed, send a line.
 	#If contact with hook, make swing.

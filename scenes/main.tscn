@@ -678,7 +678,8 @@ texture = ExtResource("4_h5vud")
 7:14/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_8sdad"]
-physics_layer_0/collision_layer = 1
+physics_layer_0/collision_layer = 2
+physics_layer_0/collision_mask = 7
 terrain_set_0/mode = 0
 terrain_set_0/terrain_0/name = "Ground"
 terrain_set_0/terrain_0/color = Color(0.676281, 0.151431, 0.273273, 1)
@@ -687,11 +688,6 @@ terrain_set_0/terrain_1/color = Color(0.668997, 0.113659, 0.779516, 1)
 terrain_set_0/terrain_2/name = "SideLava2"
 terrain_set_0/terrain_2/color = Color(0.800686, 0.275606, 0.0565537, 1)
 sources/0 = SubResource("TileSetAtlasSource_r73m2")
-
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_f4qto"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_cfnis"]
-size = Vector2(128, 128)
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_ysfbh")

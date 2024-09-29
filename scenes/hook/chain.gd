@@ -1,17 +1,18 @@
 extends Node2D
 
 @onready var links = $Links		# A slightly easier reference to the links
-var direction := Vector2(0,0)	# The direction in which the chain was shot
-var tip := Vector2(0,0)			# The global position the tip should be in
+@export var direction := Vector2(0,0)	# The direction in which the chain was shot
+@export var tip := Vector2(0,0)			# The global position the tip should be in
 								# We use an extra var for this, because the chain is 
 								# connected to the player and thus all .position
 								# properties would get messed with when the player
 								# moves.
 
 const SPEED = 50	# The speed with which the chain moves
+const MAX_LENGTH = 500 # Max length of the hook
 
-var flying = false	# Whether the chain is moving through the air
-var hooked = false	# Whether the chain has connected to a wall
+@export var flying = false	# Whether the chain is moving through the air
+@export var hooked = false	# Whether the chain has connected to a wall
 
 # shoot() shoots the chain in a given direction
 func shoot(dir: Vector2) -> void:
@@ -39,6 +40,9 @@ func _process(_delta: float) -> void:
 # Every physics frame we update the tip position
 func _physics_process(_delta: float) -> void:
 	$Tip.global_position = tip	# The player might have moved and thus updated the position of the tip -> reset it
+	if to_local(tip).length() >= MAX_LENGTH:
+		release()
+	
 	if flying:
 		# `if move_and_collide()` always moves, but returns true if we did collide
 		if $Tip.move_and_collide(direction * SPEED):
