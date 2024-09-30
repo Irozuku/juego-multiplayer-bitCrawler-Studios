@@ -1,18 +1,22 @@
 extends PlayerBase
 
 @onready var hammer = $Hammer
-@onready var animation_tree : AnimationTree = $AnimationTree
 var breakable = null
 
 func _ready():
 	animation_tree.active = true
 	jump_speed = 700
 
-func _physics_process(delta: float) -> void:
-	super(delta)
-	update_animation()
-	if is_multiplayer_authority():
-		var move_input = Input.get_axis("move_left", "move_right")
+#func _physics_process(delta: float) -> void:
+#	super(delta)
+#	if is_multiplayer_authority():
+#		var move_input = Input.get_axis("move_left", "move_right")
+func update_animation_state() -> void:
+	super()
+	if is_jumping == false and Input.is_action_just_pressed("hammer1"):
+		animation_tree.set("parameters/conditions/hammer", true)
+		sync_hammer_animation.rpc(true)
+		rpc("check_breakable")
 
 func _input(event: InputEvent) -> void:
 	if is_multiplayer_authority():
@@ -36,14 +40,11 @@ func _on_hammer_area_exited(area):
 	if area.is_in_group("breakable"):
 		breakable = null
 
-func update_animation():
-	if(velocity == Vector2.ZERO):
-		animation_tree["parameters/conditions/idle"] = true
-		animation_tree["parameters/conditions/is_moving"] = false
-	else:
-		animation_tree["parameters/conditions/idle"] = false
-		animation_tree["parameters/conditions/is_moving"] = true
-
 func _on_animation_tree_animation_finished(anim_name):
 	if anim_name == "hammer":
-		animation_tree["parameters/conditions/hammer"] = false
+		animation_tree.set("parameters/conditions/hammer", false)
+		sync_hammer_animation.rpc(false)
+
+@rpc("any_peer", "call_local", "unreliable")
+func sync_hammer_animation(is_hammering: bool) -> void:
+	animation_tree.set("parameters/conditions/hammer", is_hammering)

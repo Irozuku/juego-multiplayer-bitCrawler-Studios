@@ -165,7 +165,7 @@ advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_m5ffu"]
 advance_mode = 2
-advance_condition = &"is_moving"
+advance_condition = &"is_walking"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_02f0b"]
 advance_mode = 2
@@ -183,7 +183,7 @@ advance_condition = &"idle"
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_26w66"]
 switch_mode = 2
 advance_mode = 2
-advance_condition = &"is_moving"
+advance_condition = &"is_walking"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_shjqg"]
 advance_mode = 2
@@ -200,8 +200,9 @@ states/Walk/position = Vector2(737, -10)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_kytj6"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_m5ffu"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_02f0b"), "Idle", "Hammer", SubResource("AnimationNodeStateMachineTransition_nm02j"), "Hammer", "Idle", SubResource("AnimationNodeStateMachineTransition_n41xi"), "Hammer", "Walk", SubResource("AnimationNodeStateMachineTransition_26w66"), "Walk", "Hammer", SubResource("AnimationNodeStateMachineTransition_shjqg")]
 graph_offset = Vector2(-145.247, -23.526)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_tqbdr"]
-size = Vector2(44, 48)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6esbo"]
+radius = 20.0
+height = 42.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_au5lv"]
 size = Vector2(30, 50)
@@ -228,14 +229,14 @@ tree_root = SubResource("AnimationNodeStateMachine_pkohl")
 anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/hammer = false
 parameters/conditions/idle = false
-parameters/conditions/is_moving = false
+parameters/conditions/is_walking = false
 
 [node name="Hurtbox" parent="." instance=ExtResource("2_o8bdu")]
 visible = false
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
-position = Vector2(2, 0)
-shape = SubResource("RectangleShape2D_tqbdr")
+position = Vector2(0, 2)
+shape = SubResource("CapsuleShape2D_6esbo")
 
 [node name="Hammer" type="Area2D" parent="."]
 position = Vector2(40, 0)
@@ -244,7 +245,6 @@ position = Vector2(40, 0)
 shape = SubResource("RectangleShape2D_au5lv")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(0.8, 0.8)
 
 [connection signal="animation_finished" from="AnimationTree" to="." method="_on_animation_tree_animation_finished"]
 [connection signal="area_entered" from="Hammer" to="." method="_on_hammer_area_entered"]

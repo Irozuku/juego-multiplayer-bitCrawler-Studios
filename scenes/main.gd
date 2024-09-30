@@ -10,8 +10,10 @@ func _ready():
 		if player.role == 1:
 			p1.setup(player)
 			if player.id == multiplayer.get_unique_id():
+				p1.set_multiplayer_authority(player.id)
 				camera1.make_current()
 		if player.role == 2:
 			p2.setup(player)
 			if player.id == multiplayer.get_unique_id():
+				p2.set_multiplayer_authority(player.id)
 				camera2.make_current()
