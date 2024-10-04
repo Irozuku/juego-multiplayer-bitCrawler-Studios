@@ -41,9 +41,11 @@ func _input(event: InputEvent) -> void:
 				# We released the mouse -> release()
 				chain.release()
 
+func make_superjump():
+	rpc("superjump")
 
-#when chain pressed, send a line.
-	#If contact with hook, make swing.
-		#allow chain pressed to let go
-	#If contact with p1, grab
-		#allow roll with wheel to drag player and chain pressed to let go
+@rpc("any_peer", "call_local", "reliable")
+func superjump() -> void:
+	if is_on_floor():
+		velocity.y = -superjump_speed
+		is_jumping = true

@@ -2,18 +2,11 @@ extends PlayerBase
 
 @onready var hammer = $Hammer
 var breakable = null
+var partner = null
 
-func _ready():
-	animation_tree.active = true
-	jump_speed = 700
-
-#func _physics_process(delta: float) -> void:
-#	super(delta)
-#	if is_multiplayer_authority():
-#		var move_input = Input.get_axis("move_left", "move_right")
 func update_animation_state() -> void:
 	super()
-	if is_jumping == false and Input.is_action_just_pressed("hammer1"):
+	if is_jumping == false and Input.is_action_just_pressed("hammer1") and is_multiplayer_authority():
 		animation_tree.set("parameters/conditions/hammer", true)
 		sync_hammer_animation.rpc(true)
 		rpc("check_breakable")
@@ -22,9 +15,16 @@ func _input(event: InputEvent) -> void:
 	if is_multiplayer_authority():
 		if Input.is_action_just_pressed("hammer1"):
 			rpc("check_breakable")
-		#if Input.is_action_just_pressed("hammer2"):
-			#when hammer2 pressed, make a greater jump, if in contact with p2, make him jumo too
-			#return
+		if Input.is_action_just_pressed("hammer2"):
+			superjump()
+
+func superjump() -> void:
+	if partner:
+		partner.make_superjump()
+	if is_on_floor():
+		velocity.y = -superjump_speed
+		is_jumping = true
+		_send_jump_action(superjump_speed)
 
 @rpc("any_peer", "call_local", "reliable")
 func check_breakable():
@@ -39,6 +39,14 @@ func _on_hammer_body_entered(body):
 func _on_hammer_body_exited(body):
 	if body.is_in_group("breakable"):
 		breakable = null
+
+func _on_jump_detector_body_entered(body):
+	if body.is_in_group("partner"):
+		partner = body
+
+func _on_jump_detector_body_exited(body):
+	if body.is_in_group("partner"):
+		partner = null
 
 func _on_animation_tree_animation_finished(anim_name):
 	if anim_name == "hammer":

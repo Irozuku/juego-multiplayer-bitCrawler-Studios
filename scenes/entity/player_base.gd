@@ -5,6 +5,7 @@ extends CharacterBody2D
 @export var speed: float = 600
 @export var acceleration: float = 1000
 @export var jump_speed: int = 500
+@export var superjump_speed: int = 700
 
 #animations
 var is_idle: bool = true

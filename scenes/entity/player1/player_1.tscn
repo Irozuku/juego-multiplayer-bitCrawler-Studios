@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://bhhe2dlo7jpo"]
+[gd_scene load_steps=33 format=3 uid="uid://bhhe2dlo7jpo"]
 
 [ext_resource type="Script" path="res://scenes/entity/player1/player_1.gd" id="1_3nl45"]
 [ext_resource type="Texture2D" uid="uid://dsprl50i5bwj8" path="res://resources/animation/Pawn_Blue.png" id="2_3c0d8"]
@@ -207,6 +207,9 @@ height = 42.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_au5lv"]
 size = Vector2(30, 50)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3ou2o"]
+size = Vector2(200, 20)
+
 [node name="Player1" type="CharacterBody2D"]
 collision_mask = 3
 script = ExtResource("1_3nl45")
@@ -244,10 +247,18 @@ position = Vector2(40, 0)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hammer"]
 shape = SubResource("RectangleShape2D_au5lv")
 
+[node name="JumpDetector" type="Area2D" parent="."]
+position = Vector2(0, 25)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="JumpDetector"]
+shape = SubResource("RectangleShape2D_3ou2o")
+
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [connection signal="animation_finished" from="AnimationTree" to="." method="_on_animation_tree_animation_finished"]
 [connection signal="body_entered" from="Hammer" to="." method="_on_hammer_body_entered"]
 [connection signal="body_exited" from="Hammer" to="." method="_on_hammer_body_exited"]
+[connection signal="body_entered" from="JumpDetector" to="." method="_on_jump_detector_body_entered"]
+[connection signal="body_exited" from="JumpDetector" to="." method="_on_jump_detector_body_exited"]
 
 [editable path="Hurtbox"]
