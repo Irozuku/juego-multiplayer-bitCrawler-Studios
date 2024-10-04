@@ -32,12 +32,12 @@ func check_breakable():
 	if (breakable != null):
 		breakable.destroy()
 
-func _on_hammer_area_entered(area):
-	if area.is_in_group("breakable"):
-		breakable = area
+func _on_hammer_body_entered(body):
+	if body.is_in_group("breakable"):
+		breakable = body
 
-func _on_hammer_area_exited(area):
-	if area.is_in_group("breakable"):
+func _on_hammer_body_exited(body):
+	if body.is_in_group("breakable"):
 		breakable = null
 
 func _on_animation_tree_animation_finished(anim_name):

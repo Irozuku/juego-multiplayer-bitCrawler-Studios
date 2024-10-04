@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sknsm"]
 size = Vector2(128, 128)
 
-[node name="Breakable" type="Area2D" groups=["breakable"]]
+[node name="Breakable" type="StaticBody2D" groups=["breakable"]]
 script = ExtResource("1_sbrhy")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
