@@ -6,6 +6,7 @@ extends CharacterBody2D
 @export var acceleration: float = 1000
 @export var jump_speed: int = 500
 @export var superjump_speed: int = 700
+var partner_position := Vector2.ZERO
 
 #animations
 var is_idle: bool = true
@@ -81,3 +82,8 @@ func send_position(pos: Vector2, vel: Vector2) -> void:
 
 func setup(player_data: Statics.PlayerData) -> void:
 	set_multiplayer_authority(player_data.id)
+
+@rpc("authority", "call_local")
+func send_position_for_usability(pos: Vector2) -> void:
+	partner_position = pos
+	

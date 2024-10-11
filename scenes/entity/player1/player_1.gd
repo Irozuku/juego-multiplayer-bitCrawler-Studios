@@ -1,12 +1,12 @@
 extends PlayerBase
 
 @onready var hammer = $Hammer
-@onready var jump_anim = $JumpAnim
-@onready var superjump_sprite = $Superjump
-
+@export var hooked = false
 var breakable = null
 var partner = null
-
+const CHAIN_PULL = 100
+var chain_velocity := Vector2(0,0)
+@onready var player_2: CharacterBody2D = $"../Player2"
 
 func update_animation_state() -> void:
 	super()
@@ -22,11 +22,35 @@ func _input(event: InputEvent) -> void:
 		if Input.is_action_just_pressed("hammer2"):
 			superjump()
 
+func _physics_process(delta):
+	super(delta)
+	if is_multiplayer_authority():
+		if hooked:
+			#Debug.log("HOOKED")
+			Debug.log(player_2)
+			var move_input = Input.get_axis("move_left", "move_right")
+			# `to_local($Chain.tip).normalized()` is the direction that the chain is pulling
+			chain_velocity = to_local(player_2.global_position).normalized() * CHAIN_PULL/2
+			if chain_velocity.y > 0:
+				# Pulling down isn't as strong
+				chain_velocity.y *= 0.6
+			else:
+				# Pulling up is stronger
+				chain_velocity.y *= 1.30
+			if sign(chain_velocity.x) != sign(move_input):
+				# if we are trying to walk in a different
+				# direction than the chain is pulling
+				# reduce its pull
+				chain_velocity.x *= 0.55
+		else:
+			chain_velocity = Vector2.ZERO
+		velocity += chain_velocity
+
+
 func superjump() -> void:
 	if partner:
 		partner.make_superjump()
 	if is_on_floor():
-		jump_anim.play("superjump")
 		velocity.y = -superjump_speed
 		is_jumping = true
 		_send_jump_action(superjump_speed)
@@ -61,3 +85,17 @@ func _on_animation_tree_animation_finished(anim_name):
 @rpc("any_peer", "call_local", "unreliable")
 func sync_hammer_animation(is_hammering: bool) -> void:
 	animation_tree.set("parameters/conditions/hammer", is_hammering)
+
+func _get_pulled():
+	rpc("get_pulled")
+
+@rpc("any_peer", "call_local", "reliable")
+func get_pulled() -> void:
+	hooked = true
+
+func _released_hook():
+	rpc("released_hook")
+	
+@rpc("any_peer", "call_local", "reliable")
+func released_hook():
+	hooked = false

@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scenes/entity/player2/player_2.gd" id="1_kvrq7"]
 [ext_resource type="Texture2D" uid="uid://cf81m32bxds14" path="res://resources/animation/Archer_Blue.png" id="2_0rgmx"]
 [ext_resource type="PackedScene" uid="uid://bqadamua663a5" path="res://scenes/components/hurtbox.tscn" id="2_pp3do"]
-[ext_resource type="PackedScene" uid="uid://b7urw4g0inma" path="res://scenes/hook/chain.tscn" id="4_o7odu"]
+[ext_resource type="PackedScene" uid="uid://c5m7vpv7vn3e5" path="res://scenes/hook/chain.tscn" id="4_o7odu"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3kqwq"]
 radius = 28.0
@@ -299,10 +299,16 @@ properties/2/replication_mode = 1
 properties/3/path = NodePath("Chain:tip")
 properties/3/spawn = true
 properties/3/replication_mode = 1
+properties/4/path = NodePath("Chain:player_hooked")
+properties/4/spawn = true
+properties/4/replication_mode = 2
 
 [node name="Player2" type="CharacterBody2D" groups=["partner"]]
 collision_mask = 3
 script = ExtResource("1_kvrq7")
+
+[node name="Chain" parent="." instance=ExtResource("4_o7odu")]
+visible = false
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_0rgmx")
@@ -331,9 +337,6 @@ parameters/conditions/is_walking = false
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
 position = Vector2(0, 5)
 shape = SubResource("CapsuleShape2D_o0dbj")
-
-[node name="Chain" parent="." instance=ExtResource("4_o7odu")]
-visible = false
 
 [node name="Camera2D" type="Camera2D" parent="."]
 

@@ -22,7 +22,7 @@ region_rect = Rect2(390.111, 626.778, 10.8573, 65.4815)
 
 [node name="Tip" type="CharacterBody2D" parent="."]
 collision_layer = 4
-collision_mask = 2
+collision_mask = 10
 
 [node name="Hook" type="Sprite2D" parent="Tip"]
 texture_filter = 1
@@ -32,3 +32,8 @@ offset = Vector2(0, 8)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Tip"]
 position = Vector2(0, 15.7008)
 shape = SubResource("1")
+
+[node name="PlayerHookedTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="PlayerHookedTimer" to="." method="_on_player_hooked_timer_timeout"]
