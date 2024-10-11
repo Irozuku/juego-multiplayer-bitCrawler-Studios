@@ -1,8 +1,12 @@
 extends PlayerBase
 
 @onready var hammer = $Hammer
+@onready var jump_anim = $JumpAnim
+@onready var superjump_sprite = $Superjump
+
 var breakable = null
 var partner = null
+
 
 func update_animation_state() -> void:
 	super()
@@ -22,6 +26,7 @@ func superjump() -> void:
 	if partner:
 		partner.make_superjump()
 	if is_on_floor():
+		jump_anim.play("superjump")
 		velocity.y = -superjump_speed
 		is_jumping = true
 		_send_jump_action(superjump_speed)
