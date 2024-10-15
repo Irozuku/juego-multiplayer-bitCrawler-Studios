@@ -1,12 +1,15 @@
 extends PlayerBase
 
+const CHAIN_PULL = 100
+
 @onready var hammer = $Hammer
+@onready var player_2: CharacterBody2D = $"../Player2"
+
 @export var hooked = false
+
 var breakable = null
 var partner = null
-const CHAIN_PULL = 100
 var chain_velocity := Vector2(0,0)
-@onready var player_2: CharacterBody2D = $"../Player2"
 
 func update_animation_state() -> void:
 	super()
@@ -54,12 +57,20 @@ func superjump() -> void:
 		velocity.y = -superjump_speed
 		is_jumping = true
 		_send_jump_action(superjump_speed)
+		rpc("play_superjump")
 
 @rpc("any_peer", "call_local", "reliable")
 func check_breakable():
 	animation_tree["parameters/conditions/hammer"] = true
 	if (breakable != null):
 		breakable.destroy()
+
+@rpc("any_peer", "call_local", "reliable")
+func play_superjump():
+	var sp_fx = load("res://scenes/entity/player1/super_jump_fx.tscn")
+	var jump_node = sp_fx.instantiate()
+	jump_node.p_pos = position + Vector2(0, 25)
+	get_parent().add_child(jump_node)
 
 func _on_hammer_body_entered(body):
 	if body.is_in_group("breakable"):

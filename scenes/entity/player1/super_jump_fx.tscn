@@ -1,0 +1,85 @@
+[gd_scene load_steps=6 format=3 uid="uid://ccqdyklnljgjr"]
+
+[ext_resource type="Script" path="res://scenes/entity/player1/super_jump_fx.gd" id="1_1jhhl"]
+[ext_resource type="Texture2D" uid="uid://brdwckrcgsq17" path="res://resources/animation/Free Smoke Fx  Pixel 05.png" id="1_2bykk"]
+
+[sub_resource type="Animation" id="Animation_yutqr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SuperJump_FX/Superjump:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SuperJump_FX/Superjump:frame_coords")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_b6e8g"]
+resource_name = "superjump"
+length = 0.37
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SuperJump_FX/Superjump:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SuperJump_FX/Superjump:frame_coords")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2, 0.233333, 0.266667, 0.3, 0.333333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 10), Vector2i(1, 10), Vector2i(2, 10), Vector2i(3, 10), Vector2i(4, 10), Vector2i(5, 10), Vector2i(6, 10), Vector2i(7, 10), Vector2i(8, 10), Vector2i(9, 10), Vector2i(10, 10)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2u88s"]
+_data = {
+"RESET": SubResource("Animation_yutqr"),
+"superjump": SubResource("Animation_b6e8g")
+}
+
+[node name="SuperJump_FX" type="Node2D"]
+script = ExtResource("1_1jhhl")
+
+[node name="Superjump" type="Sprite2D" parent="."]
+visible = false
+texture_filter = 1
+scale = Vector2(4.2, 4.2)
+texture = ExtResource("1_2bykk")
+hframes = 11
+vframes = 15
+frame = 110
+
+[node name="JumpAnim" type="AnimationPlayer" parent="."]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_2u88s")
+}
+
+[connection signal="animation_finished" from="JumpAnim" to="." method="_on_jump_anim_animation_finished"]
