@@ -7,7 +7,7 @@ const CHAIN_PULL = 100
 
 @export var hooked = false
 
-var breakable = null
+var breakable = []
 var partner = null
 var chain_velocity := Vector2(0,0)
 
@@ -30,7 +30,7 @@ func _physics_process(delta):
 	if is_multiplayer_authority():
 		if hooked:
 			#Debug.log("HOOKED")
-			Debug.log(player_2)
+			#Debug.log(player_2)
 			var move_input = Input.get_axis("move_left", "move_right")
 			# `to_local($Chain.tip).normalized()` is the direction that the chain is pulling
 			chain_velocity = to_local(player_2.global_position).normalized() * CHAIN_PULL/2
@@ -61,9 +61,11 @@ func superjump() -> void:
 
 @rpc("any_peer", "call_local", "reliable")
 func check_breakable():
+	print(breakable)
 	animation_tree["parameters/conditions/hammer"] = true
-	if (breakable != null):
-		breakable.destroy()
+	for obj in breakable:
+		obj.destroy()
+		breakable.erase(obj)
 
 @rpc("any_peer", "call_local", "reliable")
 func play_superjump():
@@ -74,11 +76,14 @@ func play_superjump():
 
 func _on_hammer_body_entered(body):
 	if body.is_in_group("breakable"):
-		breakable = body
+		if not breakable.has(body):
+			print("Breakable IN")
+			breakable.append(body)
 
 func _on_hammer_body_exited(body):
 	if body.is_in_group("breakable"):
-		breakable = null
+		print("Breakable OUT")
+		breakable.erase(body)
 
 func _on_jump_detector_body_entered(body):
 	if body.is_in_group("partner"):
