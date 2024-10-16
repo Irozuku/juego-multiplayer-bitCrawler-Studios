@@ -198,7 +198,7 @@ states/Start/position = Vector2(230, -10)
 states/Walk/node = SubResource("AnimationNodeStateMachine_qqxn3")
 states/Walk/position = Vector2(737, -10)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_kytj6"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_m5ffu"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_02f0b"), "Idle", "Hammer", SubResource("AnimationNodeStateMachineTransition_nm02j"), "Hammer", "Idle", SubResource("AnimationNodeStateMachineTransition_n41xi"), "Hammer", "Walk", SubResource("AnimationNodeStateMachineTransition_26w66"), "Walk", "Hammer", SubResource("AnimationNodeStateMachineTransition_shjqg")]
-graph_offset = Vector2(-145.247, -23.526)
+graph_offset = Vector2(-145.247, -42.0424)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6esbo"]
 radius = 20.0
@@ -221,6 +221,7 @@ hframes = 6
 vframes = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("CapsuleShape2D_e32uf")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -249,6 +250,7 @@ position = Vector2(40, 0)
 shape = SubResource("RectangleShape2D_au5lv")
 
 [node name="JumpDetector" type="Area2D" parent="."]
+visible = false
 position = Vector2(0, 25)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JumpDetector"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://cjbpryim23bh"]
+[gd_scene load_steps=32 format=3 uid="uid://cjbpryim23bh"]
 
 [ext_resource type="Script" path="res://scenes/entity/player2/player_2.gd" id="1_kvrq7"]
 [ext_resource type="Texture2D" uid="uid://cf81m32bxds14" path="res://resources/animation/Archer_Blue.png" id="2_0rgmx"]
@@ -157,69 +157,8 @@ _data = {
 "walk": SubResource("Animation_lp7hc")
 }
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1k21w"]
-animation = &"arrow_e"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vbbkt"]
-animation = &"arrow_n"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xuisu"]
-animation = &"arrow_ne"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_f5evk"]
-animation = &"arrow_s"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ffpyb"]
-animation = &"arrow_se"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hrwry"]
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tx7as"]
-switch_mode = 2
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_u8yu1"]
-switch_mode = 2
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8vnkh"]
-switch_mode = 2
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ld0he"]
-switch_mode = 2
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_cio2r"]
-switch_mode = 2
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6ubvu"]
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_us2hv"]
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_giivc"]
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_mctpw"]
-advance_mode = 2
-
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_yka0g"]
-states/arrow_e/node = SubResource("AnimationNodeAnimation_1k21w")
-states/arrow_e/position = Vector2(438, 150)
-states/arrow_n/node = SubResource("AnimationNodeAnimation_vbbkt")
-states/arrow_n/position = Vector2(438, 26)
-states/arrow_ne/node = SubResource("AnimationNodeAnimation_xuisu")
-states/arrow_ne/position = Vector2(438, 88)
-states/arrow_s/node = SubResource("AnimationNodeAnimation_f5evk")
-states/arrow_s/position = Vector2(438, 282)
-states/arrow_se/node = SubResource("AnimationNodeAnimation_ffpyb")
-states/arrow_se/position = Vector2(438, 217)
-transitions = ["Start", "arrow_n", SubResource("AnimationNodeStateMachineTransition_hrwry"), "arrow_n", "End", SubResource("AnimationNodeStateMachineTransition_tx7as"), "arrow_ne", "End", SubResource("AnimationNodeStateMachineTransition_u8yu1"), "arrow_e", "End", SubResource("AnimationNodeStateMachineTransition_8vnkh"), "arrow_se", "End", SubResource("AnimationNodeStateMachineTransition_ld0he"), "arrow_s", "End", SubResource("AnimationNodeStateMachineTransition_cio2r"), "Start", "arrow_ne", SubResource("AnimationNodeStateMachineTransition_6ubvu"), "Start", "arrow_e", SubResource("AnimationNodeStateMachineTransition_us2hv"), "Start", "arrow_se", SubResource("AnimationNodeStateMachineTransition_giivc"), "Start", "arrow_s", SubResource("AnimationNodeStateMachineTransition_mctpw")]
-graph_offset = Vector2(0, -52.4877)
+graph_offset = Vector2(0, 48.4549)
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qpsxn"]
 animation = &"idle"
@@ -333,6 +272,7 @@ parameters/conditions/idle = false
 parameters/conditions/is_walking = false
 
 [node name="Hurtbox" parent="." instance=ExtResource("2_pp3do")]
+visible = false
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
 position = Vector2(0, 5)
