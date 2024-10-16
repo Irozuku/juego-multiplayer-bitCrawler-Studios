@@ -8,8 +8,14 @@ const CHAIN_PULL = 100
 var chain_velocity := Vector2(0,0)
 @onready var player_2: CharacterBody2D = $"../Player2"
 
-func update_animation_state() -> void:
-	super()
+func update_animations(move_input) -> void:
+	super(move_input)
+	if move_input != 0:
+		var new_facing_right = move_input > 0
+		if new_facing_right != facing_right:
+			facing_right = new_facing_right
+			update_hammer_position.rpc(facing_right)
+	
 	if is_jumping == false and Input.is_action_just_pressed("hammer1") and is_multiplayer_authority():
 		animation_tree.set("parameters/conditions/hammer", true)
 		sync_hammer_animation.rpc(true)
@@ -25,9 +31,10 @@ func _input(event: InputEvent) -> void:
 func _physics_process(delta):
 	super(delta)
 	if is_multiplayer_authority():
+		update_hammer_position.rpc(facing_right)
 		if hooked:
 			#Debug.log("HOOKED")
-			Debug.log(player_2)
+			#Debug.log(player_2)
 			var move_input = Input.get_axis("move_left", "move_right")
 			# `to_local($Chain.tip).normalized()` is the direction that the chain is pulling
 			chain_velocity = to_local(player_2.global_position).normalized() * CHAIN_PULL/2
@@ -46,6 +53,12 @@ func _physics_process(delta):
 			chain_velocity = Vector2.ZERO
 		velocity += chain_velocity
 
+@rpc("any_peer", "call_local", "reliable")
+func update_hammer_position(facing_right: bool) -> void:
+	if facing_right:
+		hammer.position.x = abs(hammer.position.x)
+	else:
+		hammer.position.x = -abs(hammer.position.x)
 
 func superjump() -> void:
 	if partner:
@@ -80,6 +93,10 @@ func _on_jump_detector_body_exited(body):
 func _on_animation_tree_animation_finished(anim_name):
 	if anim_name == "hammer":
 		animation_tree.set("parameters/conditions/hammer", false)
+		if abs(velocity.x) > 10 and is_on_floor():
+			playback.travel("Walk")
+		else:
+			playback.travel("Idle")
 		sync_hammer_animation.rpc(false)
 
 @rpc("any_peer", "call_local", "unreliable")

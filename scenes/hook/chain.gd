@@ -32,7 +32,7 @@ func release() -> void:
 	hooked = false	# Not attached anymore
 	player_hooked = false # Not attached to player anymore
 	partner = null
-	Debug.log(partner)
+	#Debug.log(partner)
 
 # Every graphics frame we update the visuals
 func _process(_delta: float) -> void:
@@ -58,7 +58,7 @@ func _physics_process(_delta: float) -> void:
 		# `if move_and_collide()` always moves, but returns true if we did collide
 		var collider = $Tip.move_and_collide(direction * SPEED)
 		if collider:
-			Debug.log(collider.get_collider().is_in_group("hookable"))
+			#Debug.log(collider.get_collider().is_in_group("hookable"))
 			if collider.get_collider().is_in_group("hookable"):
 				collider.get_collider()._get_pulled()
 				partner = collider.get_collider()

@@ -9,11 +9,16 @@ extends CharacterBody2D
 var partner_position := Vector2.ZERO
 
 #animations
-var is_idle: bool = true
-var is_walking: bool = false
-var is_jumping: bool = false
-
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var animation_tree: AnimationTree = $AnimationTree
+@onready var playback: AnimationNodeStateMachinePlayback = $AnimationTree["parameters/playback"]
+@onready var sprite: Sprite2D = $Sprite2D
+
+var current_animation: String = "Idle"
+var facing_right: bool = true
+var is_jumping: bool = false
+var is_overDoor: bool = false
+var is_hidden: bool = false
 
 func _ready():
 	animation_tree.active = true
@@ -29,11 +34,12 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_just_pressed("jump"):
 			jump()
 		
-		update_animation_state()
-		sync_animation_state.rpc(is_walking, is_idle, is_jumping)
-		send_position.rpc(position, velocity)
+		update_animations(move_input)
+		send_state.rpc(position, velocity, current_animation, facing_right)
 	move_and_slide()
-	
+
+func has_multiplayer_authority() -> bool:
+	return multiplayer.get_unique_id() == get_multiplayer_authority()
 
 # Makes the character jump and calls the rpc to send this action
 func jump() -> void:
@@ -43,24 +49,22 @@ func jump() -> void:
 		_send_jump_action(jump_speed)
 
 #Changes the animations of the characters and calls the rpc to send this action
-func update_animation_state():
-	if is_on_floor():
-		if (velocity == Vector2.ZERO):
-			is_idle = true
-			is_walking = false
-			is_jumping = false
-		else:
-			is_idle = false
-			is_walking = true
-			is_jumping = false
-	else:
-		is_idle = false
-		is_walking = false
-		is_jumping = true
+func update_animations(move_input: float) -> void:
+	if move_input != 0:
+		facing_right = move_input > 0
+		sprite.flip_h = not facing_right
 	
-	animation_tree.set("parameters/conditions/idle", is_idle)
-	animation_tree.set("parameters/conditions/is_walking", is_walking)
-	animation_tree.set("parameters/conditions/is_jumping", is_jumping)
+	var new_animation: String
+	if abs(velocity.x) > 10 and is_on_floor():
+		new_animation = "Walk"
+	elif not is_on_floor():
+		new_animation = "Jump"
+	else:
+		new_animation = "Idle"
+	
+	if new_animation != current_animation:
+		current_animation = new_animation
+		playback.travel(current_animation)
 
 # RPC to send the action of jumping with reliable protocol
 @rpc("authority", "call_remote", "reliable")
@@ -68,17 +72,15 @@ func _send_jump_action(jump_speed: int) -> void:
 	velocity.y = -jump_speed
 	is_jumping = true
 
-@rpc("any_peer", "call_local", "unreliable")
-func sync_animation_state(idle: bool, walk: bool, jump: bool) -> void:
-	is_idle = idle
-	is_walking = walk
-	is_jumping = jump
-	update_animation_state()
-
-@rpc("authority", "call_remote")
-func send_position(pos: Vector2, vel: Vector2) -> void:
-	position = lerp(position, pos, 0.5)
-	velocity = lerp(velocity, vel, 0.5)
+@rpc("authority", "call_remote", "unreliable")
+func send_state(pos: Vector2, vel: Vector2, anim: String, facing_right: bool) -> void:
+	if not is_multiplayer_authority():
+		position = pos
+		velocity = vel
+		if anim != current_animation:
+			current_animation = anim
+			playback.travel(current_animation)
+		sprite.flip_h = not facing_right
 
 func setup(player_data: Statics.PlayerData) -> void:
 	set_multiplayer_authority(player_data.id)
@@ -86,4 +88,3 @@ func setup(player_data: Statics.PlayerData) -> void:
 @rpc("authority", "call_local")
 func send_position_for_usability(pos: Vector2) -> void:
 	partner_position = pos
-	

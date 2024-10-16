@@ -1,0 +1,217 @@
+[gd_scene load_steps=30 format=3 uid="uid://b0yg0svmnursq"]
+
+[ext_resource type="Script" path="res://scenes/door/door.gd" id="1_k57hm"]
+[ext_resource type="Texture2D" uid="uid://dbhuotahx4k8s" path="res://resources/animation/door.png" id="1_v1of3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_efvpi"]
+size = Vector2(62, 81)
+
+[sub_resource type="Animation" id="Animation_yrobp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_8cy16"]
+resource_name = "close"
+length = 0.1
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_b2fq4"]
+resource_name = "closing"
+length = 0.4
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(3, 0), Vector2i(2, 0), Vector2i(1, 0), Vector2i(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_k3hf4"]
+resource_name = "open"
+length = 0.1
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(4, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_bwkk3"]
+resource_name = "opening"
+length = 0.4
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(1, 0), Vector2i(2, 0), Vector2i(3, 0), Vector2i(4, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j0f4s"]
+_data = {
+"RESET": SubResource("Animation_yrobp"),
+"close": SubResource("Animation_8cy16"),
+"closing": SubResource("Animation_b2fq4"),
+"open": SubResource("Animation_k3hf4"),
+"opening": SubResource("Animation_bwkk3")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ybgg6"]
+animation = &"close"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_md8nq"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_nlmid"]
+states/close/node = SubResource("AnimationNodeAnimation_ybgg6")
+states/close/position = Vector2(453, 100)
+transitions = ["Start", "close", SubResource("AnimationNodeStateMachineTransition_md8nq")]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_64knq"]
+animation = &"closing"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_rrrnl"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_uffro"]
+states/closing/node = SubResource("AnimationNodeAnimation_64knq")
+states/closing/position = Vector2(468, 100)
+transitions = ["Start", "closing", SubResource("AnimationNodeStateMachineTransition_rrrnl")]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rtfl3"]
+animation = &"open"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_j3v62"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_46ysh"]
+states/open/node = SubResource("AnimationNodeAnimation_rtfl3")
+states/open/position = Vector2(455, 100)
+transitions = ["Start", "open", SubResource("AnimationNodeStateMachineTransition_j3v62")]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_sfy2k"]
+animation = &"opening"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_n1ois"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_meulj"]
+states/opening/node = SubResource("AnimationNodeAnimation_sfy2k")
+states/opening/position = Vector2(454, 100)
+transitions = ["Start", "opening", SubResource("AnimationNodeStateMachineTransition_n1ois")]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_g71l2"]
+switch_mode = 1
+advance_mode = 2
+advance_condition = &"close"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_htp1n"]
+switch_mode = 1
+advance_mode = 2
+advance_condition = &"open"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_yivaj"]
+advance_mode = 2
+advance_condition = &"close"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4m742"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"close"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_x23r0"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"open"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_lhta8"]
+advance_mode = 2
+advance_condition = &"open"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_12feg"]
+advance_mode = 2
+advance_condition = &"close"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_e31by"]
+states/Close/node = SubResource("AnimationNodeStateMachine_nlmid")
+states/Close/position = Vector2(390, 100)
+states/Closing/node = SubResource("AnimationNodeStateMachine_uffro")
+states/Closing/position = Vector2(519, 187)
+states/Open/node = SubResource("AnimationNodeStateMachine_46ysh")
+states/Open/position = Vector2(670, 100)
+states/Opening/node = SubResource("AnimationNodeStateMachine_meulj")
+states/Opening/position = Vector2(519, 27)
+transitions = ["Opening", "Closing", SubResource("AnimationNodeStateMachineTransition_g71l2"), "Closing", "Opening", SubResource("AnimationNodeStateMachineTransition_htp1n"), "Open", "Closing", SubResource("AnimationNodeStateMachineTransition_yivaj"), "Closing", "Close", SubResource("AnimationNodeStateMachineTransition_4m742"), "Opening", "Open", SubResource("AnimationNodeStateMachineTransition_x23r0"), "Close", "Opening", SubResource("AnimationNodeStateMachineTransition_lhta8"), "Start", "Close", SubResource("AnimationNodeStateMachineTransition_12feg")]
+graph_offset = Vector2(0, -14.2748)
+
+[node name="Door" type="Area2D"]
+collision_layer = 0
+script = ExtResource("1_k57hm")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(4.2, 3)
+texture = ExtResource("1_v1of3")
+hframes = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, 7.5)
+shape = SubResource("RectangleShape2D_efvpi")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_j0f4s")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_e31by")
+anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/close = false
+parameters/conditions/open = false
+
+[connection signal="body_entered" from="." to="." method="_on_Door_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_Door_body_exited"]
