@@ -27,7 +27,7 @@ func _physics_process(delta):
 	if is_multiplayer_authority():
 		if hooked:
 			#Debug.log("HOOKED")
-			Debug.log(player_2)
+			#Debug.log(player_2)
 			var move_input = Input.get_axis("move_left", "move_right")
 			# `to_local($Chain.tip).normalized()` is the direction that the chain is pulling
 			chain_velocity = to_local(player_2.global_position).normalized() * CHAIN_PULL/2
