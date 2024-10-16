@@ -724,8 +724,9 @@ position = Vector2(1875, 242)
 
 [node name="Breakable7" parent="Break" instance=ExtResource("5_w1i0k")]
 position = Vector2(1875, 210)
+
 [node name="Door" parent="." instance=ExtResource("6_2v3cg")]
-position = Vector2(1400, 605)
+position = Vector2(1986, 371)
 collision_layer = 2
 collision_mask = 3
 
