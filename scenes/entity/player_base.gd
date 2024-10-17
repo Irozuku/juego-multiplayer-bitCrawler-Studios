@@ -13,6 +13,8 @@ var partner_position := Vector2.ZERO
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var playback: AnimationNodeStateMachinePlayback = $AnimationTree["parameters/playback"]
 @onready var sprite: Sprite2D = $Sprite2D
+@onready var lose_condition: Control = $LoseCondition
+signal dead
 
 var current_animation: String = "Idle"
 var facing_right: bool = true
@@ -20,8 +22,11 @@ var is_jumping: bool = false
 var is_overDoor: bool = false
 var is_hidden: bool = false
 
+var initial_position := Vector2.ZERO
+
 func _ready():
 	animation_tree.active = true
+	initial_position = global_position
 
 func _physics_process(delta: float) -> void:
 	if is_multiplayer_authority():
@@ -33,6 +38,9 @@ func _physics_process(delta: float) -> void:
 		
 		if Input.is_action_just_pressed("jump"):
 			jump()
+			
+		if Input.is_action_just_pressed("retry"):
+			global_position = initial_position
 		
 		update_animations(move_input)
 		send_state.rpc(position, velocity, current_animation, facing_right)
@@ -88,3 +96,14 @@ func setup(player_data: Statics.PlayerData) -> void:
 @rpc("authority", "call_local")
 func send_position_for_usability(pos: Vector2) -> void:
 	partner_position = pos
+
+func _on_lose_condition_retry() -> void:
+	set_physics_process(true)
+	if is_multiplayer_authority():
+		global_position = initial_position
+		lose_condition.visible = false
+
+func _on_hurtbox_body_entered(body: Node2D) -> void:
+	set_physics_process(false)
+	if is_multiplayer_authority():
+		lose_condition.visible = true

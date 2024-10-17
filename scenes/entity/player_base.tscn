@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bvw2rq8vmhwu7"]
+[gd_scene load_steps=4 format=3 uid="uid://bvw2rq8vmhwu7"]
 
 [ext_resource type="Script" path="res://scenes/entity/player_base.gd" id="1_q4hac"]
 [ext_resource type="PackedScene" uid="uid://bqadamua663a5" path="res://scenes/components/hurtbox.tscn" id="2_a2nch"]
+[ext_resource type="PackedScene" uid="uid://5atpqa3xbsgp" path="res://scenes/ui/lose_condition.tscn" id="3_7scls"]
 
 [node name="PlayerBase" type="CharacterBody2D"]
 collision_mask = 3
@@ -17,5 +18,12 @@ position = Vector2(2, 1)
 [node name="AnimationTree" type="AnimationTree" parent="."]
 
 [node name="Hurtbox" parent="." instance=ExtResource("2_a2nch")]
+collision_mask = 16
+
+[node name="LoseCondition" parent="." instance=ExtResource("3_7scls")]
+visible = false
+
+[connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
+[connection signal="retry" from="LoseCondition" to="." method="_on_lose_condition_retry"]
 
 [editable path="Hurtbox"]
