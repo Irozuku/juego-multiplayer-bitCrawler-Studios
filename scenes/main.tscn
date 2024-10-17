@@ -864,4 +864,4 @@ collision_mask = 3
 position = Vector2(98, 609)
 
 [node name="Player2" parent="Players" instance=ExtResource("3_j727n")]
-position = Vector2(737, 335)
+position = Vector2(175, 603)
