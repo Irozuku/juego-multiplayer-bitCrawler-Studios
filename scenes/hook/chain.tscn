@@ -22,7 +22,7 @@ region_rect = Rect2(390.111, 626.778, 10.8573, 65.4815)
 
 [node name="Tip" type="CharacterBody2D" parent="."]
 collision_layer = 4
-collision_mask = 10
+collision_mask = 8
 
 [node name="Hook" type="Sprite2D" parent="Tip"]
 texture_filter = 1

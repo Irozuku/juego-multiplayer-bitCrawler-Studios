@@ -1,9 +1,8 @@
-[gd_scene load_steps=38 format=3 uid="uid://bhhe2dlo7jpo"]
+[gd_scene load_steps=34 format=3 uid="uid://bhhe2dlo7jpo"]
 
 [ext_resource type="Script" path="res://scenes/entity/player1/player_1.gd" id="1_3nl45"]
 [ext_resource type="Texture2D" uid="uid://dsprl50i5bwj8" path="res://resources/animation/Pawn_Blue.png" id="2_3c0d8"]
 [ext_resource type="PackedScene" uid="uid://bqadamua663a5" path="res://scenes/components/hurtbox.tscn" id="2_o8bdu"]
-[ext_resource type="Texture2D" uid="uid://brdwckrcgsq17" path="res://resources/animation/Free Smoke Fx  Pixel 05.png" id="4_jeha3"]
 [ext_resource type="PackedScene" uid="uid://5atpqa3xbsgp" path="res://scenes/ui/lose_condition.tscn" id="5_2iyuy"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_e32uf"]
