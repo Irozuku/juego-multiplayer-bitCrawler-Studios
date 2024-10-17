@@ -588,6 +588,7 @@ texture = ExtResource("4_h5vud")
 7:10/animation_frame_6/duration = 1.0
 7:10/0 = 0
 1:11/0 = 0
+1:11/0/physics_layer_1/polygon_0/points = PackedVector2Array(-8, 8, 8, 8, 8, -8, -8, -8)
 2:11/animation_columns = 7
 2:11/animation_separation = Vector2i(7, 0)
 2:11/animation_speed = 5.0
@@ -682,6 +683,7 @@ texture = ExtResource("4_h5vud")
 [sub_resource type="TileSet" id="TileSet_8sdad"]
 physics_layer_0/collision_layer = 2
 physics_layer_0/collision_mask = 7
+physics_layer_1/collision_layer = 16
 terrain_set_0/mode = 0
 terrain_set_0/terrain_0/name = "Ground"
 terrain_set_0/terrain_0/color = Color(0.676281, 0.151431, 0.273273, 1)

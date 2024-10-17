@@ -1,8 +1,10 @@
-[gd_scene load_steps=33 format=3 uid="uid://bhhe2dlo7jpo"]
+[gd_scene load_steps=38 format=3 uid="uid://bhhe2dlo7jpo"]
 
 [ext_resource type="Script" path="res://scenes/entity/player1/player_1.gd" id="1_3nl45"]
 [ext_resource type="Texture2D" uid="uid://dsprl50i5bwj8" path="res://resources/animation/Pawn_Blue.png" id="2_3c0d8"]
 [ext_resource type="PackedScene" uid="uid://bqadamua663a5" path="res://scenes/components/hurtbox.tscn" id="2_o8bdu"]
+[ext_resource type="Texture2D" uid="uid://brdwckrcgsq17" path="res://resources/animation/Free Smoke Fx  Pixel 05.png" id="4_jeha3"]
+[ext_resource type="PackedScene" uid="uid://5atpqa3xbsgp" path="res://scenes/ui/lose_condition.tscn" id="5_2iyuy"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_e32uf"]
 radius = 24.0
@@ -238,6 +240,7 @@ parameters/conditions/is_walking = false
 
 [node name="Hurtbox" parent="." instance=ExtResource("2_o8bdu")]
 visible = false
+collision_mask = 16
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
 position = Vector2(0, 2)
@@ -258,10 +261,15 @@ shape = SubResource("RectangleShape2D_3ou2o")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
+[node name="LoseCondition" parent="." instance=ExtResource("5_2iyuy")]
+visible = false
+
 [connection signal="animation_finished" from="AnimationTree" to="." method="_on_animation_tree_animation_finished"]
+[connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
 [connection signal="body_entered" from="Hammer" to="." method="_on_hammer_body_entered"]
 [connection signal="body_exited" from="Hammer" to="." method="_on_hammer_body_exited"]
 [connection signal="body_entered" from="JumpDetector" to="." method="_on_jump_detector_body_entered"]
 [connection signal="body_exited" from="JumpDetector" to="." method="_on_jump_detector_body_exited"]
+[connection signal="retry" from="LoseCondition" to="." method="_on_lose_condition_retry"]
 
 [editable path="Hurtbox"]

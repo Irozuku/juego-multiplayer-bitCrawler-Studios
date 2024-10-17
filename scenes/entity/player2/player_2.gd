@@ -4,6 +4,7 @@ extends PlayerBase
 const CHAIN_PULL = 100
 
 var chain_velocity := Vector2(0,0)
+@onready var player_2: CharacterBody2D = $"../Player1"
 
 func _physics_process(delta: float) -> void:
 	super(delta)

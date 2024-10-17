@@ -1,9 +1,10 @@
-[gd_scene load_steps=32 format=3 uid="uid://cjbpryim23bh"]
+[gd_scene load_steps=33 format=3 uid="uid://cjbpryim23bh"]
 
 [ext_resource type="Script" path="res://scenes/entity/player2/player_2.gd" id="1_kvrq7"]
 [ext_resource type="Texture2D" uid="uid://cf81m32bxds14" path="res://resources/animation/Archer_Blue.png" id="2_0rgmx"]
 [ext_resource type="PackedScene" uid="uid://bqadamua663a5" path="res://scenes/components/hurtbox.tscn" id="2_pp3do"]
 [ext_resource type="PackedScene" uid="uid://c5m7vpv7vn3e5" path="res://scenes/hook/chain.tscn" id="4_o7odu"]
+[ext_resource type="PackedScene" uid="uid://5atpqa3xbsgp" path="res://scenes/ui/lose_condition.tscn" id="5_2vwn8"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3kqwq"]
 radius = 28.0
@@ -273,6 +274,7 @@ parameters/conditions/is_walking = false
 
 [node name="Hurtbox" parent="." instance=ExtResource("2_pp3do")]
 visible = false
+collision_mask = 16
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
 position = Vector2(0, 5)
@@ -282,5 +284,11 @@ shape = SubResource("CapsuleShape2D_o0dbj")
 
 [node name="ChainSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_v818x")
+
+[node name="LoseCondition" parent="." instance=ExtResource("5_2vwn8")]
+visible = false
+
+[connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
+[connection signal="retry" from="LoseCondition" to="." method="_on_lose_condition_retry"]
 
 [editable path="Hurtbox"]
