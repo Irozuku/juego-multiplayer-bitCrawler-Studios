@@ -99,11 +99,14 @@ func send_position_for_usability(pos: Vector2) -> void:
 
 func _on_lose_condition_retry() -> void:
 	set_physics_process(true)
+	set_process_input(true)
 	if is_multiplayer_authority():
 		global_position = initial_position
 		lose_condition.visible = false
 
 func _on_hurtbox_body_entered(body: Node2D) -> void:
+	velocity = Vector2.ZERO
 	set_physics_process(false)
+	set_process_input(false)
 	if is_multiplayer_authority():
 		lose_condition.visible = true
