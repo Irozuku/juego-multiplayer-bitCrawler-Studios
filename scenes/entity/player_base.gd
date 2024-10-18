@@ -14,6 +14,10 @@ var partner_position := Vector2.ZERO
 @onready var playback: AnimationNodeStateMachinePlayback = $AnimationTree["parameters/playback"]
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var lose_condition: Control = $LoseCondition
+@onready var sprite_2d: Sprite2D = $Sprite2D
+@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
+@onready var hurtbox_collision: CollisionShape2D = $Hurtbox/CollisionShape2D
+
 signal dead
 
 var current_animation: String = "Idle"
@@ -100,12 +104,18 @@ func send_position_for_usability(pos: Vector2) -> void:
 func _on_lose_condition_retry() -> void:
 	set_physics_process(true)
 	set_process_input(true)
+	sprite_2d.visible = true
+	collision_shape_2d.set_deferred("disabled",false)
+	hurtbox_collision.set_deferred("disabled",false)
 	if is_multiplayer_authority():
 		global_position = initial_position
 		lose_condition.visible = false
 
 func _on_hurtbox_body_entered(body: Node2D) -> void:
 	velocity = Vector2.ZERO
+	collision_shape_2d.set_deferred("disabled",true)
+	hurtbox_collision.set_deferred("disabled",true)
+	sprite_2d.visible = false
 	set_physics_process(false)
 	set_process_input(false)
 	if is_multiplayer_authority():
