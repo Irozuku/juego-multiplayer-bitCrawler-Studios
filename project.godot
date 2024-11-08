@@ -20,6 +20,10 @@ config/icon="res://icon.svg"
 Debug="*res://autoloads/debug.gd"
 Game="*res://autoloads/game.tscn"
 
+[display]
+
+window/stretch/mode="viewport"
+
 [gui]
 
 theme/custom="res://resources/theme.tres"

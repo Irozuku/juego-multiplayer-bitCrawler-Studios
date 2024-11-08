@@ -9,43 +9,54 @@ z_index = -1
 scale = Vector2(3, 3)
 
 [node name="BG" type="Sprite2D" parent="."]
+texture_filter = 1
 texture = ExtResource("1_dhjr3")
 
 [node name="MiddleRock" type="Sprite2D" parent="."]
+texture_filter = 1
 texture = ExtResource("2_clcyf")
 
 [node name="Lava" type="Sprite2D" parent="."]
+texture_filter = 1
 position = Vector2(0, 90)
 texture = ExtResource("3_8ba7k")
 
 [node name="Lava6" type="Sprite2D" parent="."]
+texture_filter = 1
 position = Vector2(-48, 90)
 texture = ExtResource("3_8ba7k")
 
 [node name="Lava7" type="Sprite2D" parent="."]
+texture_filter = 1
 position = Vector2(-96, 90)
 texture = ExtResource("3_8ba7k")
 
 [node name="Lava8" type="Sprite2D" parent="."]
+texture_filter = 1
 position = Vector2(-144, 90)
 texture = ExtResource("3_8ba7k")
 
 [node name="Lava9" type="Sprite2D" parent="."]
+texture_filter = 1
 position = Vector2(-192, 90)
 texture = ExtResource("3_8ba7k")
 
 [node name="Lava2" type="Sprite2D" parent="."]
+texture_filter = 1
 position = Vector2(48, 90)
 texture = ExtResource("3_8ba7k")
 
 [node name="Lava3" type="Sprite2D" parent="."]
+texture_filter = 1
 position = Vector2(96, 90)
 texture = ExtResource("3_8ba7k")
 
 [node name="Lava4" type="Sprite2D" parent="."]
+texture_filter = 1
 position = Vector2(144, 90)
 texture = ExtResource("3_8ba7k")
 
 [node name="Lava5" type="Sprite2D" parent="."]
+texture_filter = 1
 position = Vector2(192, 90)
 texture = ExtResource("3_8ba7k")
