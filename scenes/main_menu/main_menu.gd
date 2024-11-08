@@ -8,6 +8,9 @@ extends Control
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	if Game.multiplayer_test:
+		get_tree().change_scene_to_file.call_deferred("res://scenes/lobby_test.tscn")
+		return
 	start.pressed.connect(_on_start_pressed)
 	credits.pressed.connect(_on_credits_pressed)
 	exit.pressed.connect(_on_exit_pressed)
