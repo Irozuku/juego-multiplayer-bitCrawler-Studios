@@ -50,23 +50,24 @@ func _process(_delta: float) -> void:
 
 # Every physics frame we update the tip position
 func _physics_process(_delta: float) -> void:
-	$Tip.global_position = tip	# The player might have moved and thus updated the position of the tip -> reset it
-	if to_local(tip).length() >= MAX_LENGTH:
-		release()
-	
-	if flying:
-		# `if move_and_collide()` always moves, but returns true if we did collide
-		var collider = $Tip.move_and_collide(direction * SPEED)
-		if collider:
-			#Debug.log(collider.get_collider().is_in_group("hookable"))
-			if collider.get_collider().is_in_group("hookable"):
-				collider.get_collider()._get_pulled()
-				partner = collider.get_collider()
-				player_hooked = true
-				player_hooked_timer.start()
-			hooked = true	# Got something!
-			flying = false	# Not flying anymore
-	tip = $Tip.global_position	# set `tip` as starting position for next frame
+	if is_multiplayer_authority():
+		$Tip.global_position = tip	# The player might have moved and thus updated the position of the tip -> reset it
+		if to_local(tip).length() >= MAX_LENGTH:
+			release()
+		
+		if flying:
+			# `if move_and_collide()` always moves, but returns true if we did collide
+			var collider = $Tip.move_and_collide(direction * SPEED)
+			if collider:
+				#Debug.log(collider.get_collider().is_in_group("hookable"))
+				if collider.get_collider().is_in_group("hookable"):
+					collider.get_collider()._get_pulled()
+					partner = collider.get_collider()
+					player_hooked = true
+					player_hooked_timer.start()
+				hooked = true	# Got something!
+				flying = false	# Not flying anymore
+		tip = $Tip.global_position	# set `tip` as starting position for next frame
 
 func _on_player_hooked_timer_timeout() -> void:
 	release()
