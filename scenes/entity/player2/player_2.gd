@@ -6,6 +6,11 @@ const CHAIN_PULL = 100
 var chain_velocity := Vector2(0,0)
 @onready var player_2: CharacterBody2D = $"../Player1"
 
+func _ready():
+	if Game.get_current_player().role == 2:
+		var bg_node = add_background()
+		add_child(bg_node)
+
 func _physics_process(delta: float) -> void:
 	super(delta)
 	if is_multiplayer_authority():

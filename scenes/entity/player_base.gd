@@ -28,6 +28,8 @@ var is_hidden: bool = false
 
 var initial_position := Vector2.ZERO
 
+var background = preload("res://scenes/entity/background.tscn")
+
 func _ready():
 	animation_tree.active = true
 	initial_position = global_position
@@ -59,6 +61,10 @@ func jump() -> void:
 		velocity.y = -jump_speed
 		is_jumping = true
 		_send_jump_action(jump_speed)
+
+func add_background():
+	var bg_instance = background.instantiate()
+	return bg_instance
 
 #Changes the animations of the characters and calls the rpc to send this action
 func update_animations(move_input: float) -> void:

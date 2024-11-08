@@ -11,6 +11,11 @@ var breakable = []
 var partner = null
 var chain_velocity := Vector2(0,0)
 
+func _ready():
+	if Game.get_current_player().role == 1:
+		var bg_node = add_background()
+		add_child(bg_node)
+
 func update_animations(move_input) -> void:
 	super(move_input)
 	if move_input != 0:
