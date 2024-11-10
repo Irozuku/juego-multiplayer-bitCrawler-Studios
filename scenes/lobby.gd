@@ -1,11 +1,11 @@
-extends MarginContainer
+extends Control
 
 @export var lobby_player_scene: PackedScene
 
 # { id: true }
 var status = { 1 : false }
 var _menu_stack: Array[Control] = []
-
+@onready var back = %Back
 @onready var user = %User
 @onready var host = %Host
 @onready var join = %Join
@@ -55,6 +55,8 @@ func _ready():
 	
 	start_timer.timeout.connect(_on_start_timer_timeout)
 	
+	back.pressed.connect(_on_back_pressed)
+	
 	ready_toggle.disabled = true
 	time_container.hide()
 
@@ -70,6 +72,9 @@ func _process(_delta: float) -> void:
 	if !start_timer.is_stopped():
 		time.text = str(ceil(start_timer.time_left))
 
+
+func _on_back_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/main_menu/main_menu.tscn")
 
 func _on_upnp_completed(error) -> void:
 	print(error)
