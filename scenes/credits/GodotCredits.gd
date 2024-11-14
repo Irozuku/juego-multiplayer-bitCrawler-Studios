@@ -4,8 +4,8 @@ extends Control
 @export var to_scene : PackedScene = preload("res://scenes/main_menu/main_menu.tscn")
 @export var title_color := Color.BLUE_VIOLET
 @export var text_color := Color.WHITE
-@export var title_font : FontFile = null
-@export var text_font : FontFile = null
+@export var title_font : FontFile = preload("res://resources/font/antiquity-print.ttf")
+@export var text_font : FontFile = preload("res://resources/font/OpenSans-SemiBold.ttf")
 @export var Music : AudioStream = null
 @export var Use_Video_Audio : bool = false
 @export var Video : VideoStream = null
@@ -33,51 +33,39 @@ var lines := []
 
 var credits = [
 	[
-		"A Painter's Nightmare by bitCrawler Studios"
+		"Hammer & Hook: Escape from Hell by bitCrawler Studios"
 	],[
 		"Programming",
 		"Andrea Trigo",
 		"Sebastián Saez",
 		"Emilio Díaz"
 	],[
-		"Paintings",
-		"Hieronymus Bosch",
+		"Sprites",
+		"Tiny Swords by pixelfrog",
 		"The Bosch Project",
 	],[
-		"Enemies Art",
-		"Luck",
-		"Mattz Art",
-		"War",
-		"CreativeKind"
+		"Animations",
+		"L",
+		"M",
+		"Will's Pixel Explosions sample by unTied Games",
+		"Free Smoke Fx Pixel 2 by bdragon1727"
 		
 	],[
-		"Map Art",
-		"Xenophero",
-		"poong.gif",
-	],[
-		"Paints and Canvas",
-		"DINO♥JAM",
+		"Backgrounds",
+		"Lava background by Ansimuz",
 		"BDragon1727",
 		"Ravenmore",
 		"Kenney (Assets)",
 		"srtoasty",
 	],[
-		"Effects Art",
-		"CodeManu",
-		"Stealthix",
-		"BDragon1727",
-		"pimen",
+		"Tilesets",
+		"Top Down lava by BeyonderBoy",
+		"Moten lava by TheConceptofChris",
+		"Sungeon platformer by RottingPixels"
 	],[
-		"Miscellaneous Art",
-		"Kab Games",
-		"MiDe-S",
-		"FantasyLandscapes",
-		"Valiegraphie",
-		"GabrielaTot",
-		"Crusenho",
-		"Robert Brooks",
-		"Dream Mix",
-		"greenpixels_"
+		"Icons & Fonts",
+		"Check mark icon by Delapouite",
+		"Antiquity print by SciGho"
 	],[
 		"Music",
 		"Sergio Quintero",
