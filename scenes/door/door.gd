@@ -53,9 +53,11 @@ func player_entered_door(player_name: String) -> void:
 	var player = get_node("/root/Main/Players/" + player_name)
 	if player:
 		player.is_hidden = true
-		player.hide()
+		#player.hide()
 		player.set_physics_process(false)
 		for child in player.get_children():
+			if child is Sprite2D:
+				child.hide()
 			if child is CollisionShape2D:
 				child.set_deferred("disabled", true)
 		finish += 1
@@ -69,9 +71,11 @@ func player_exited_door(player_name: String) -> void:
 	var player = get_node("/root/Main/Players/" + player_name)
 	if player:
 		player.is_hidden = false
-		player.show()
+		#player.show()
 		player.set_physics_process(true)
 		for child in player.get_children():
+			if child is Sprite2D:
+				child.show()
 			if child is CollisionShape2D:
 				child.set_deferred("disabled", false)
 		finish -= 1
