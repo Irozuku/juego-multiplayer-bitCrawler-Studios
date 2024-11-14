@@ -15,8 +15,7 @@ func _on_next_level():
 	#get_tree().change_scene("res://path_to_next_level.tscn")
 
 func _on_main_menu_pressed():
-	pass
-	#get_tree().change_scene_to_file("res://MenuInicial.tscn")
+	get_tree().change_scene_to_file("res://scenes/main_menu/main_menu.tscn")
 
 func _on_quit_pressed():
 	get_tree().quit()
