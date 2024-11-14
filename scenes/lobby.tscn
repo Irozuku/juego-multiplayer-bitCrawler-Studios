@@ -10,6 +10,7 @@ subpixel_positioning = 0
 
 [sub_resource type="SystemFont" id="SystemFont_tsu2m"]
 font_names = PackedStringArray("Open Sans")
+subpixel_positioning = 0
 
 [node name="Lobby" type="Control"]
 layout_mode = 3

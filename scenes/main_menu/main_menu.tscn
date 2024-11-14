@@ -50,7 +50,6 @@ layout_mode = 2
 theme_override_constants/margin_top = 115
 
 [node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="PanelContainer/MarginContainer"]
-visible = false
 layout_mode = 2
 
 [node name="VBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer"]
