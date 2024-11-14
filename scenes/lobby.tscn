@@ -1,10 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://bslhrv3eo36wd"]
+[gd_scene load_steps=6 format=3 uid="uid://bslhrv3eo36wd"]
 
 [ext_resource type="Script" path="res://scenes/lobby.gd" id="1_g2fmt"]
 [ext_resource type="PackedScene" uid="uid://chbh4lxk8rmmd" path="res://scenes/ui/lobby_player.tscn" id="2_060bj"]
 [ext_resource type="VideoStream" path="res://resources/menu_background/lobby_background.ogv" id="3_tu53w"]
 
 [sub_resource type="SystemFont" id="SystemFont_6cbkw"]
+font_names = PackedStringArray("Open Sans")
+subpixel_positioning = 0
+
+[sub_resource type="SystemFont" id="SystemFont_tsu2m"]
+font_names = PackedStringArray("Open Sans")
 
 [node name="Lobby" type="Control"]
 layout_mode = 3
@@ -100,6 +105,7 @@ text = "IP:
 [node name="IP" type="LineEdit" parent="PanelContainer/Menus/JoinMenu"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_tsu2m")
 text = "127.0.0.1"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/Menus/JoinMenu"]
@@ -146,13 +152,13 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Role A"
+text = "Hammer"
 
 [node name="RoleB" type="Button" parent="PanelContainer/Menus/ReadyMenu/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Role B"
+text = "Hook"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/Menus/ReadyMenu"]
 layout_mode = 2
