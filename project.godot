@@ -27,6 +27,7 @@ window/stretch/mode="viewport"
 [gui]
 
 theme/custom="res://resources/theme.tres"
+theme/custom_font="res://resources/font/antiquity-print.ttf"
 
 [input]
 
