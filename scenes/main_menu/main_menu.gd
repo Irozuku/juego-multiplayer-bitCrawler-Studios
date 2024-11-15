@@ -14,7 +14,7 @@ func _ready():
 	start.pressed.connect(_on_start_pressed)
 	credits.pressed.connect(_on_credits_pressed)
 	exit.pressed.connect(_on_exit_pressed)
-	# AudioPlayer.play_bgm_music()
+	AudioMaster.play_music_mainmenu()
 
 func _on_start_pressed():
 	get_tree().change_scene_to_file("res://scenes/lobby.tscn")
