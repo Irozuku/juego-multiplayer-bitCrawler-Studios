@@ -1,7 +1,9 @@
-[gd_scene load_steps=30 format=3 uid="uid://b0yg0svmnursq"]
+[gd_scene load_steps=32 format=3 uid="uid://b0yg0svmnursq"]
 
 [ext_resource type="Script" path="res://scenes/door/door.gd" id="1_k57hm"]
 [ext_resource type="Texture2D" uid="uid://dbhuotahx4k8s" path="res://resources/animation/door.png" id="1_v1of3"]
+[ext_resource type="AudioStream" uid="uid://dskpqc240f5mx" path="res://resources/sfx/Door_Close.wav" id="2_qmc8u"]
+[ext_resource type="AudioStream" uid="uid://b1p355gtyu5e5" path="res://resources/sfx/Door_Open.wav" id="3_q4yys"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_efvpi"]
 size = Vector2(62, 81)
@@ -191,6 +193,12 @@ graph_offset = Vector2(0, -14.2748)
 [node name="Door" type="Area2D"]
 collision_layer = 0
 script = ExtResource("1_k57hm")
+
+[node name="AudioClose" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_qmc8u")
+
+[node name="AudioOpen" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_q4yys")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(4.2, 3)
