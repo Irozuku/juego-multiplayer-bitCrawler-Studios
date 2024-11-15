@@ -4,18 +4,28 @@ const CHAIN_PULL = 100
 
 @onready var hammer = $Hammer
 @onready var player_2: CharacterBody2D = $"../Player2"
+@onready var jump_timer = Timer.new()
 
 @export var hooked = false
 
 var breakable = []
 var partner = null
 var chain_velocity := Vector2(0,0)
+var jump_queued := false
 
 func _ready():
 	super()
+	add_to_group("players")
 	if Game.get_current_player().role == 1:
 		var bg_node = add_background()
 		add_child(bg_node)
+		
+	# Timer para salto alto
+	jump_timer.wait_time = 0.3
+	jump_timer.one_shot = true
+	jump_timer.timeout.connect(_on_jump_timer_timeout)
+	add_child(jump_timer)
+
 
 func update_animations(move_input) -> void:
 	super(move_input)
@@ -27,15 +37,18 @@ func update_animations(move_input) -> void:
 	
 	if is_jumping == false and Input.is_action_just_pressed("hammer1") and is_multiplayer_authority():
 		animation_tree.set("parameters/conditions/hammer", true)
-		sync_hammer_animation.rpc(true)
 		rpc("check_breakable")
+	if Input.is_action_just_pressed("hammer2") and is_multiplayer_authority():
+		animation_tree.set("parameters/conditions/highJump", true)
+		queue_superjump()
 
 func _input(event: InputEvent) -> void:
 	if is_multiplayer_authority():
 		if Input.is_action_just_pressed("hammer1"):
 			rpc("check_breakable")
 		if Input.is_action_just_pressed("hammer2"):
-			superjump()
+			queue_superjump()
+			#superjump()
 
 func _physics_process(delta):
 	super(delta)
@@ -69,14 +82,24 @@ func update_hammer_position(facing_right: bool) -> void:
 	else:
 		hammer.position.x = -abs(hammer.position.x)
 
+func queue_superjump() -> void:
+	if not jump_queued and is_on_floor():
+		jump_queued = true
+		animation_tree.set("parameters/conditions/highJump", true)
+		jump_timer.start()
+
 func superjump() -> void:
 	if partner:
 		partner.make_superjump()
-	if is_on_floor():
-		velocity.y = -superjump_speed
-		is_jumping = true
-		_send_jump_action(superjump_speed)
-		rpc("play_superjump")
+	velocity.y = -superjump_speed
+	is_jumping = true
+	_send_jump_action(superjump_speed)
+	rpc("play_superjump")
+	jump_queued = false
+
+func _on_jump_timer_timeout() -> void:
+	if jump_queued:
+		superjump()
 
 @rpc("any_peer", "call_local", "reliable")
 func check_breakable():
@@ -119,11 +142,12 @@ func _on_animation_tree_animation_finished(anim_name):
 			playback.travel("Walk")
 		else:
 			playback.travel("Idle")
-		sync_hammer_animation.rpc(false)
-
-@rpc("any_peer", "call_local", "unreliable")
-func sync_hammer_animation(is_hammering: bool) -> void:
-	animation_tree.set("parameters/conditions/hammer", is_hammering)
+	if anim_name == "hammer_jump":
+		animation_tree.set("parameters/conditions/highJump", false)
+		if abs(velocity.x) > 10 and is_on_floor():
+			playback.travel("Walk")
+		else:
+			playback.travel("Idle")
 
 func _get_pulled():
 	rpc("get_pulled")

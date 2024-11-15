@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://bhhe2dlo7jpo"]
+[gd_scene load_steps=43 format=3 uid="uid://bhhe2dlo7jpo"]
 
 [ext_resource type="Script" path="res://scenes/entity/player1/player_1.gd" id="1_3nl45"]
 [ext_resource type="Texture2D" uid="uid://dsprl50i5bwj8" path="res://resources/animation/Pawn_Blue.png" id="2_3c0d8"]
@@ -24,10 +24,9 @@ tracks/0/keys = {
 "values": [Vector2i(0, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_6kw1w"]
-resource_name = "grab_idle"
+[sub_resource type="Animation" id="Animation_kos5q"]
+resource_name = "hammer"
 length = 0.6
-loop_mode = 1
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -39,29 +38,11 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [Vector2i(0, 4), Vector2i(1, 4), Vector2i(2, 4), Vector2i(3, 4), Vector2i(4, 4), Vector2i(5, 4)]
-}
-
-[sub_resource type="Animation" id="Animation_ck5ua"]
-resource_name = "grab_walk"
-length = 0.6
-loop_mode = 1
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame_coords")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [Vector2i(0, 5), Vector2i(1, 5), Vector2i(2, 5), Vector2i(3, 5), Vector2i(4, 5), Vector2i(5, 5)]
+"values": [Vector2i(0, 3), Vector2i(1, 3), Vector2i(2, 3), Vector2i(3, 3), Vector2i(4, 3), Vector2i(5, 3)]
 }
 
 [sub_resource type="Animation" id="Animation_g1sbd"]
-resource_name = "hammer"
+resource_name = "hammer_jump"
 length = 0.6
 step = 0.1
 tracks/0/type = "value"
@@ -116,9 +97,8 @@ tracks/0/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_35wsg"]
 _data = {
 "RESET": SubResource("Animation_yid1s"),
-"grab_idle": SubResource("Animation_6kw1w"),
-"grab_walk": SubResource("Animation_ck5ua"),
-"hammer": SubResource("Animation_g1sbd"),
+"hammer": SubResource("Animation_kos5q"),
+"hammer_jump": SubResource("Animation_g1sbd"),
 "idle": SubResource("Animation_c5h8t"),
 "walk": SubResource("Animation_gj0rj")
 }
@@ -137,6 +117,21 @@ advance_mode = 2
 states/hammer/node = SubResource("AnimationNodeAnimation_3lupy")
 states/hammer/position = Vector2(537, 100)
 transitions = ["Start", "hammer", SubResource("AnimationNodeStateMachineTransition_qy2x8"), "hammer", "End", SubResource("AnimationNodeStateMachineTransition_abwn3")]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_23ikd"]
+animation = &"hammer_jump"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8ahds"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ox0de"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_vbqxo"]
+states/hammer_jump/node = SubResource("AnimationNodeAnimation_23ikd")
+states/hammer_jump/position = Vector2(544, 100)
+transitions = ["Start", "hammer_jump", SubResource("AnimationNodeStateMachineTransition_8ahds"), "hammer_jump", "End", SubResource("AnimationNodeStateMachineTransition_ox0de")]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_tvxm7"]
 animation = &"idle"
@@ -190,16 +185,46 @@ advance_condition = &"is_walking"
 advance_mode = 2
 advance_condition = &"hammer"
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tp52a"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"highJump"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qnim0"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"hammer"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xpa0g"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"is_walking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0p0wv"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ipsal"]
+advance_mode = 2
+advance_condition = &"highJump"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vosap"]
+advance_mode = 2
+advance_condition = &"highJump"
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_pkohl"]
 states/Hammer/node = SubResource("AnimationNodeStateMachine_u4abg")
 states/Hammer/position = Vector2(375, 181)
+states/HammerJump/node = SubResource("AnimationNodeStateMachine_vbqxo")
+states/HammerJump/position = Vector2(737, 187.558)
 states/Idle/node = SubResource("AnimationNodeStateMachine_wcjfm")
 states/Idle/position = Vector2(375, -10)
 states/Start/position = Vector2(230, -10)
 states/Walk/node = SubResource("AnimationNodeStateMachine_qqxn3")
 states/Walk/position = Vector2(737, -10)
-transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_kytj6"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_m5ffu"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_02f0b"), "Idle", "Hammer", SubResource("AnimationNodeStateMachineTransition_nm02j"), "Hammer", "Idle", SubResource("AnimationNodeStateMachineTransition_n41xi"), "Hammer", "Walk", SubResource("AnimationNodeStateMachineTransition_26w66"), "Walk", "Hammer", SubResource("AnimationNodeStateMachineTransition_shjqg")]
-graph_offset = Vector2(-145.247, -42.0424)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_kytj6"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_m5ffu"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_02f0b"), "Idle", "Hammer", SubResource("AnimationNodeStateMachineTransition_nm02j"), "Hammer", "Idle", SubResource("AnimationNodeStateMachineTransition_n41xi"), "Hammer", "Walk", SubResource("AnimationNodeStateMachineTransition_26w66"), "Walk", "Hammer", SubResource("AnimationNodeStateMachineTransition_shjqg"), "Hammer", "HammerJump", SubResource("AnimationNodeStateMachineTransition_tp52a"), "HammerJump", "Hammer", SubResource("AnimationNodeStateMachineTransition_qnim0"), "HammerJump", "Walk", SubResource("AnimationNodeStateMachineTransition_xpa0g"), "HammerJump", "Idle", SubResource("AnimationNodeStateMachineTransition_0p0wv"), "Idle", "HammerJump", SubResource("AnimationNodeStateMachineTransition_ipsal"), "Walk", "HammerJump", SubResource("AnimationNodeStateMachineTransition_vosap")]
+graph_offset = Vector2(-145.247, -44.2531)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6esbo"]
 radius = 20.0
@@ -234,6 +259,7 @@ libraries = {
 tree_root = SubResource("AnimationNodeStateMachine_pkohl")
 anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/hammer = false
+parameters/conditions/highJump = false
 parameters/conditions/idle = false
 parameters/conditions/is_walking = false
 
