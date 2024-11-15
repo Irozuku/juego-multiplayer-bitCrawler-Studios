@@ -55,6 +55,7 @@ func player_entered_door(player_name: String) -> void:
 		player.is_hidden = true
 		#player.hide()
 		player.set_physics_process(false)
+		player.set_process_input(false)
 		for child in player.get_children():
 			if child is Sprite2D:
 				child.hide()
@@ -73,6 +74,7 @@ func player_exited_door(player_name: String) -> void:
 		player.is_hidden = false
 		#player.show()
 		player.set_physics_process(true)
+		player.set_process_input(true)
 		for child in player.get_children():
 			if child is Sprite2D:
 				child.show()
