@@ -7,6 +7,7 @@ var chain_velocity := Vector2(0,0)
 @onready var player_2: CharacterBody2D = $"../Player1"
 
 func _ready():
+	super()
 	if Game.get_current_player().role == 2:
 		var bg_node = add_background()
 		add_child(bg_node)

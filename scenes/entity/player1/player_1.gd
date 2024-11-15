@@ -12,6 +12,7 @@ var partner = null
 var chain_velocity := Vector2(0,0)
 
 func _ready():
+	super()
 	if Game.get_current_player().role == 1:
 		var bg_node = add_background()
 		add_child(bg_node)
