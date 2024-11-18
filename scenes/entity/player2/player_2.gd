@@ -8,6 +8,7 @@ var chain_velocity := Vector2(0,0)
 
 func _ready():
 	super()
+	add_to_group("players")
 	if Game.get_current_player().role == 2:
 		var bg_node = add_background()
 		add_child(bg_node)
