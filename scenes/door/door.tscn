@@ -57,6 +57,21 @@ tracks/0/keys = {
 "update": 1,
 "values": [Vector2i(3, 0), Vector2i(2, 0), Vector2i(1, 0), Vector2i(0, 0)]
 }
+tracks/1/type = "audio"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Audio")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("2_qmc8u")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/1/use_blend = true
 
 [sub_resource type="Animation" id="Animation_k3hf4"]
 resource_name = "open"
@@ -92,6 +107,21 @@ tracks/0/keys = {
 "update": 1,
 "values": [Vector2i(1, 0), Vector2i(2, 0), Vector2i(3, 0), Vector2i(4, 0)]
 }
+tracks/1/type = "audio"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Audio")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("3_q4yys")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/1/use_blend = true
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_j0f4s"]
 _data = {
@@ -194,11 +224,7 @@ graph_offset = Vector2(0, -14.2748)
 collision_layer = 0
 script = ExtResource("1_k57hm")
 
-[node name="AudioClose" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("2_qmc8u")
-
-[node name="AudioOpen" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("3_q4yys")
+[node name="Audio" type="AudioStreamPlayer2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(4.2, 3)
