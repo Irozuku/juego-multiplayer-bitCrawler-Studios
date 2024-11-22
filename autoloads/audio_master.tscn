@@ -3,4 +3,5 @@
 [ext_resource type="Script" path="res://autoloads/audio_master.gd" id="1_meu85"]
 
 [node name="AudioMaster" type="AudioStreamPlayer"]
+bus = &"BGM"
 script = ExtResource("1_meu85")

@@ -225,6 +225,7 @@ collision_layer = 0
 script = ExtResource("1_k57hm")
 
 [node name="Audio" type="AudioStreamPlayer2D" parent="."]
+bus = &"SFX"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(4.2, 3)
