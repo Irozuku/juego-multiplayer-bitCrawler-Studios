@@ -1,8 +1,10 @@
-[gd_scene load_steps=43 format=3 uid="uid://bhhe2dlo7jpo"]
+[gd_scene load_steps=45 format=3 uid="uid://bhhe2dlo7jpo"]
 
 [ext_resource type="Script" path="res://scenes/entity/player1/player_1.gd" id="1_3nl45"]
 [ext_resource type="Texture2D" uid="uid://dsprl50i5bwj8" path="res://resources/animation/Pawn_Blue.png" id="2_3c0d8"]
 [ext_resource type="PackedScene" uid="uid://bqadamua663a5" path="res://scenes/components/hurtbox.tscn" id="2_o8bdu"]
+[ext_resource type="AudioStream" uid="uid://bxv23ao28137v" path="res://resources/sfx/Hammer1.mp3" id="3_ck5g2"]
+[ext_resource type="AudioStream" uid="uid://bgpthgyfn0sr3" path="res://resources/sfx/Hammer2.mp3" id="3_u0qa5"]
 [ext_resource type="PackedScene" uid="uid://5atpqa3xbsgp" path="res://scenes/ui/lose_condition.tscn" id="5_2iyuy"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_e32uf"]
@@ -40,6 +42,21 @@ tracks/0/keys = {
 "update": 1,
 "values": [Vector2i(0, 3), Vector2i(1, 3), Vector2i(2, 3), Vector2i(3, 3), Vector2i(4, 3), Vector2i(5, 3)]
 }
+tracks/1/type = "audio"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Audio")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("3_ck5g2")
+}],
+"times": PackedFloat32Array(0.1)
+}
+tracks/1/use_blend = true
 
 [sub_resource type="Animation" id="Animation_g1sbd"]
 resource_name = "hammer_jump"
@@ -57,6 +74,21 @@ tracks/0/keys = {
 "update": 1,
 "values": [Vector2i(0, 2), Vector2i(1, 2), Vector2i(2, 2), Vector2i(4, 2), Vector2i(5, 2)]
 }
+tracks/1/type = "audio"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Audio")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("3_u0qa5")
+}],
+"times": PackedFloat32Array(0.2)
+}
+tracks/1/use_blend = true
 
 [sub_resource type="Animation" id="Animation_c5h8t"]
 resource_name = "idle"
@@ -249,6 +281,8 @@ vframes = 6
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
 shape = SubResource("CapsuleShape2D_e32uf")
+
+[node name="Audio" type="AudioStreamPlayer2D" parent="."]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
