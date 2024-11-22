@@ -86,7 +86,7 @@ tracks/1/keys = {
 "start_offset": 0.0,
 "stream": ExtResource("3_u0qa5")
 }],
-"times": PackedFloat32Array(0.2)
+"times": PackedFloat32Array(0.1)
 }
 tracks/1/use_blend = true
 
@@ -283,6 +283,8 @@ visible = false
 shape = SubResource("CapsuleShape2D_e32uf")
 
 [node name="Audio" type="AudioStreamPlayer2D" parent="."]
+max_polyphony = 2
+bus = &"SFX"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

@@ -45,18 +45,12 @@ var credits = [
 		"The Bosch Project",
 	],[
 		"Animations",
-		"L",
-		"M",
 		"Will's Pixel Explosions sample by unTied Games",
 		"Free Smoke Fx Pixel 2 by bdragon1727"
 		
 	],[
 		"Backgrounds",
 		"Lava background by Ansimuz",
-		"BDragon1727",
-		"Ravenmore",
-		"Kenney (Assets)",
-		"srtoasty",
 	],[
 		"Tilesets",
 		"Top Down lava by BeyonderBoy",
@@ -68,22 +62,11 @@ var credits = [
 		"Antiquity print by SciGho"
 	],[
 		"Music",
-		"Sergio Quintero",
-		"poulj",
-		"lucafrancini",
-		"Chimimin",
-		"StudioKolomna",
-		"Music_For_Videos",
+		"Alkakrab",
 	],[
 		"Sound Effects",
-		"SFX Name",
-		"Leohpaz",
-	],[
-		"Testers",
-		"Toto",
-	],[
-		"Special thanks",
-		"Acople",
+		"TomMusic",
+		"Cyberwave-Orchestra",
 	]
 ]
 

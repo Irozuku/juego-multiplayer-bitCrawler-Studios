@@ -103,7 +103,6 @@ func _on_jump_timer_timeout() -> void:
 
 @rpc("any_peer", "call_local", "reliable")
 func check_breakable():
-	print(breakable)
 	animation_tree["parameters/conditions/hammer"] = true
 	for obj in breakable:
 		obj.destroy()
