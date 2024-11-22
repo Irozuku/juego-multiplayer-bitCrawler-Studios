@@ -2,7 +2,7 @@ extends Node
 
 @onready var levels = [
 	"res://scenes/main.tscn",  # Tutorial is the first level
-	"res://scenes/levels/tutorial.tscn",
+	"res://scenes/levels/level1.tscn",
 ]
 var current_level_index = 0
 @onready var current_scene = "res://scenes/main.tscn"
