@@ -5,6 +5,7 @@ const CHAIN_PULL = 100
 
 var chain_velocity := Vector2(0,0)
 @onready var player_2: CharacterBody2D = $"../Player1"
+@onready var audio_shoot = $AudioShoot
 
 func _ready():
 	super()
@@ -58,6 +59,8 @@ func _input(event: InputEvent) -> void:
 		if event is InputEventMouseButton:
 			if event.pressed:
 				# We clicked the mouse -> shoot()
+				if not audio_shoot.is_playing():
+					audio_shoot.play(0.1)
 				chain.shoot(get_local_mouse_position())
 			else:
 				# We released the mouse -> release()

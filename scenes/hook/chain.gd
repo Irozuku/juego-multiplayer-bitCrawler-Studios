@@ -8,6 +8,7 @@ extends Node2D
 								# properties would get messed with when the player
 								# moves.
 @onready var player_hooked_timer: Timer = $PlayerHookedTimer
+@onready var audio = $Audio
 
 const SPEED = 50	# The speed with which the chain moves
 const MAX_LENGTH = 500 # Max length of the hook
@@ -66,6 +67,8 @@ func _physics_process(_delta: float) -> void:
 					player_hooked = true
 					player_hooked_timer.start()
 				hooked = true	# Got something!
+				if not audio.is_playing():
+					audio.play()
 				flying = false	# Not flying anymore
 		tip = $Tip.global_position	# set `tip` as starting position for next frame
 

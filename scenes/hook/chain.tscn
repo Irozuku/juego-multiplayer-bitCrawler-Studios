@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://c5m7vpv7vn3e5"]
+[gd_scene load_steps=6 format=3 uid="uid://c5m7vpv7vn3e5"]
 
 [ext_resource type="Script" path="res://scenes/hook/chain.gd" id="1_2htkw"]
 [ext_resource type="Texture2D" uid="uid://dhcnx8voau8gg" path="res://scenes/assets/hook/rope.png" id="2_j6cp3"]
 [ext_resource type="Texture2D" uid="uid://32pptxwjbciy" path="res://scenes/assets/hook/hook.png" id="3_ux47c"]
+[ext_resource type="AudioStream" uid="uid://n3inrs6y4ht5" path="res://resources/sfx/Hit.mp3" id="4_q3mce"]
 
 [sub_resource type="CapsuleShape2D" id="1"]
 radius = 4.40329
@@ -35,5 +36,10 @@ shape = SubResource("1")
 
 [node name="PlayerHookedTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="Audio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_q3mce")
+volume_db = 8.0
+bus = &"SFX"
 
 [connection signal="timeout" from="PlayerHookedTimer" to="." method="_on_player_hooked_timer_timeout"]
