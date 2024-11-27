@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=4 uid="uid://b5hufqs7sbm01"]
+[gd_scene load_steps=21 format=4 uid="uid://b5hufqs7sbm01"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_ysfbh"]
 [ext_resource type="PackedScene" uid="uid://bhhe2dlo7jpo" path="res://scenes/entity/player1/player_1.tscn" id="2_7h5ca"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://b0yg0svmnursq" path="res://scenes/door/door.tscn" id="6_2v3cg"]
 [ext_resource type="PackedScene" uid="uid://c6u64rr8uneh7" path="res://scenes/ui/tutorial/tutorial.tscn" id="8_8ri76"]
 [ext_resource type="Script" path="res://scenes/ui/tutorial/tutorial_areas.gd" id="9_wqhfk"]
+[ext_resource type="PackedScene" uid="uid://c7eqeihc2fl5n" path="res://scenes/ui/pause.tscn" id="10_h2t2j"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_r73m2"]
 texture = ExtResource("4_h5vud")
@@ -934,6 +935,8 @@ script = ExtResource("9_wqhfk")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Tutorial/Area6"]
 position = Vector2(2010, 246.5)
 shape = SubResource("RectangleShape2D_gmvxv")
+
+[node name="Pause" parent="." instance=ExtResource("10_h2t2j")]
 
 [connection signal="body_entered" from="Tutorial/Area1" to="Tutorial/Area1" method="_on_area_entered"]
 [connection signal="body_exited" from="Tutorial/Area1" to="Tutorial/Area1" method="_on_area_exited"]
