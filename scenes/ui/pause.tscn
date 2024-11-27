@@ -1,0 +1,50 @@
+[gd_scene load_steps=3 format=3 uid="uid://c7eqeihc2fl5n"]
+
+[ext_resource type="VideoStream" path="res://resources/pause_background/pause_background.ogv" id="1_3gmul"]
+[ext_resource type="Script" path="res://scenes/ui/pause.gd" id="1_xdv0d"]
+
+[node name="Pause" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_xdv0d")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.999943, 0.999713)
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.13678
+anchor_bottom = 1.24331
+offset_right = -157.568
+offset_bottom = -157.664
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.22085, 1.2315)
+stream = ExtResource("1_3gmul")
+autoplay = true
+loop = true
+metadata/_edit_use_anchors_ = true
+
+[node name="PanelContainer" type="PanelContainer" parent="Control"]
+self_modulate = Color(0.976471, 0.0941176, 0.694118, 0.470588)
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -12.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Control/PanelContainer"]
+layout_mode = 2
+text = "Paused"
+horizontal_alignment = 1
+vertical_alignment = 1
