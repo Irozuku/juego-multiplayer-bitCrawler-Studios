@@ -12,7 +12,6 @@ func _ready():
 func _on_next_level():
 	#Next Level
 	change_to_tutorial_scene.rpc()
-	LevelManager.load_next_level()
 
 func _on_main_menu_pressed():
 	get_tree().change_scene_to_file("res://scenes/main_menu/main_menu.tscn")
