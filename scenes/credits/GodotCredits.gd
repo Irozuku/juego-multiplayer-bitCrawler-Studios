@@ -43,6 +43,7 @@ var credits = [
 		"Sprites",
 		"Tiny Swords by pixelfrog",
 		"The Bosch Project",
+		"Door by MaxFyraZ"
 	],[
 		"Animations",
 		"L",
@@ -65,7 +66,8 @@ var credits = [
 	],[
 		"Icons & Fonts",
 		"Check mark icon by Delapouite",
-		"Antiquity print by SciGho"
+		"Antiquity print by SciGho",
+		"Keyboard icons by Mr. Breakfast"
 	],[
 		"Music",
 		"Sergio Quintero",

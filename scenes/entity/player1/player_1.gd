@@ -1,10 +1,12 @@
 extends PlayerBase
 
 const CHAIN_PULL = 100
+const HIGH_JUMP_FX_DELAY = 0.3  # Delay for jump effect
 
 @onready var hammer = $Hammer
 @onready var player_2: CharacterBody2D = $"../Player2"
 @onready var jump_timer = Timer.new()
+@onready var fx_timer = Timer.new()
 
 @export var hooked = false
 
@@ -19,12 +21,18 @@ func _ready():
 	if Game.get_current_player().role == 1:
 		var bg_node = add_background()
 		add_child(bg_node)
-		
+	
 	# Timer para salto alto
 	jump_timer.wait_time = 0.3
 	jump_timer.one_shot = true
 	jump_timer.timeout.connect(_on_jump_timer_timeout)
 	add_child(jump_timer)
+	
+	# Timer FX
+	fx_timer.wait_time = HIGH_JUMP_FX_DELAY
+	fx_timer.one_shot = true
+	fx_timer.timeout.connect(_on_fx_timer_timeout)
+	add_child(fx_timer)
 
 
 func update_animations(move_input) -> void:
@@ -40,14 +48,16 @@ func update_animations(move_input) -> void:
 		rpc("check_breakable")
 	if Input.is_action_just_pressed("hammer2") and is_multiplayer_authority():
 		animation_tree.set("parameters/conditions/highJump", true)
-		queue_superjump()
+		rpc("start_high_jump_animation")
+		#queue_superjump()
 
 func _input(event: InputEvent) -> void:
 	if is_multiplayer_authority():
 		if Input.is_action_just_pressed("hammer1"):
 			rpc("check_breakable")
 		if Input.is_action_just_pressed("hammer2"):
-			queue_superjump()
+			rpc("start_high_jump_animation")
+			#queue_superjump()
 			#superjump()
 
 func _physics_process(delta):
@@ -88,6 +98,21 @@ func queue_superjump() -> void:
 		animation_tree.set("parameters/conditions/highJump", true)
 		jump_timer.start()
 
+@rpc("any_peer", "call_local", "reliable")
+func start_high_jump_animation():
+	if not jump_queued and is_on_floor():
+		jump_queued = true
+		animation_tree.set("parameters/conditions/highJump", true)
+		jump_timer.start()
+		fx_timer.start()
+		rpc("prepare_high_jump")
+
+@rpc("any_peer", "call_local", "reliable")
+func prepare_high_jump():
+	# Prepare for the high jump synchronization
+	jump_queued = true
+	animation_tree.set("parameters/conditions/highJump", true)
+
 func superjump() -> void:
 	if partner:
 		partner.make_superjump()
@@ -100,6 +125,10 @@ func superjump() -> void:
 func _on_jump_timer_timeout() -> void:
 	if jump_queued:
 		superjump()
+
+func _on_fx_timer_timeout():
+	if is_multiplayer_authority():
+		rpc("play_superjump")
 
 @rpc("any_peer", "call_local", "reliable")
 func check_breakable():
