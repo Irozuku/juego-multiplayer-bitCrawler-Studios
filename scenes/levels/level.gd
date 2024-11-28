@@ -7,6 +7,7 @@ extends Node2D
 @onready var door = $Door
 
 func _ready():
+	AudioMaster.play_music_level()
 	door.register_players([p1.get_instance_id(), p2.get_instance_id()])
 	for player in Game.players:
 		if player.role == 1:
