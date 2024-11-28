@@ -17,6 +17,8 @@ var partner_position := Vector2.ZERO
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 @onready var hurtbox_collision: CollisionShape2D = $Hurtbox/CollisionShape2D
+@onready var jump_sfx = $JumpSFX
+@onready var death_sfx = $DeathSFX
 
 signal dead
 
@@ -60,6 +62,7 @@ func jump() -> void:
 	if is_on_floor():
 		velocity.y = -jump_speed
 		is_jumping = true
+		jump_sfx.play()
 		_send_jump_action(jump_speed)
 
 func add_background():
@@ -87,6 +90,7 @@ func update_animations(move_input: float) -> void:
 # RPC to send the action of jumping with reliable protocol
 @rpc("authority", "call_remote", "reliable")
 func _send_jump_action(jump_speed: int) -> void:
+	jump_sfx.play()
 	velocity.y = -jump_speed
 	is_jumping = true
 
@@ -122,6 +126,7 @@ func _on_hurtbox_body_entered(body: Node2D) -> void:
 	collision_shape_2d.set_deferred("disabled",true)
 	hurtbox_collision.set_deferred("disabled",true)
 	sprite_2d.visible = false
+	death_sfx.play()
 	set_physics_process(false)
 	set_process_input(false)
 	if is_multiplayer_authority():

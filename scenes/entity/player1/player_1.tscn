@@ -1,10 +1,12 @@
-[gd_scene load_steps=45 format=3 uid="uid://bhhe2dlo7jpo"]
+[gd_scene load_steps=47 format=3 uid="uid://bhhe2dlo7jpo"]
 
 [ext_resource type="Script" path="res://scenes/entity/player1/player_1.gd" id="1_3nl45"]
 [ext_resource type="Texture2D" uid="uid://dsprl50i5bwj8" path="res://resources/animation/Pawn_Blue.png" id="2_3c0d8"]
 [ext_resource type="PackedScene" uid="uid://bqadamua663a5" path="res://scenes/components/hurtbox.tscn" id="2_o8bdu"]
+[ext_resource type="AudioStream" uid="uid://enkvrqgdymh0" path="res://resources/sfx/Jump.wav" id="3_6ieag"]
 [ext_resource type="AudioStream" uid="uid://bxv23ao28137v" path="res://resources/sfx/Hammer1.mp3" id="3_ck5g2"]
-[ext_resource type="AudioStream" uid="uid://bgpthgyfn0sr3" path="res://resources/sfx/Hammer2.mp3" id="3_u0qa5"]
+[ext_resource type="AudioStream" uid="uid://crpgwr7uxsvyr" path="res://resources/sfx/Hammer2.mp3" id="3_u0qa5"]
+[ext_resource type="AudioStream" uid="uid://dtivf5g1xcho0" path="res://resources/sfx/Death.wav" id="4_7oivl"]
 [ext_resource type="PackedScene" uid="uid://5atpqa3xbsgp" path="res://scenes/ui/lose_condition.tscn" id="5_2iyuy"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_e32uf"]
@@ -282,7 +284,17 @@ vframes = 6
 visible = false
 shape = SubResource("CapsuleShape2D_e32uf")
 
+[node name="JumpSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_6ieag")
+attenuation = 4.28709
+bus = &"SFX"
+
+[node name="DeathSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_7oivl")
+bus = &"SFX"
+
 [node name="Audio" type="AudioStreamPlayer2D" parent="."]
+attenuation = 3.605
 max_polyphony = 2
 bus = &"SFX"
 

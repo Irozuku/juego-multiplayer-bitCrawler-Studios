@@ -13,6 +13,10 @@ script = ExtResource("1_q4hac")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(2, 1)
 
+[node name="JumpSFX" type="AudioStreamPlayer2D" parent="."]
+
+[node name="DeathSFX" type="AudioStreamPlayer2D" parent="."]
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 
 [node name="AnimationTree" type="AnimationTree" parent="."]

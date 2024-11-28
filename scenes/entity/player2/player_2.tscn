@@ -1,11 +1,13 @@
-[gd_scene load_steps=34 format=3 uid="uid://cjbpryim23bh"]
+[gd_scene load_steps=36 format=3 uid="uid://cjbpryim23bh"]
 
 [ext_resource type="Script" path="res://scenes/entity/player2/player_2.gd" id="1_kvrq7"]
 [ext_resource type="Texture2D" uid="uid://cf81m32bxds14" path="res://resources/animation/Archer_Blue.png" id="2_0rgmx"]
 [ext_resource type="PackedScene" uid="uid://bqadamua663a5" path="res://scenes/components/hurtbox.tscn" id="2_pp3do"]
 [ext_resource type="PackedScene" uid="uid://c5m7vpv7vn3e5" path="res://scenes/hook/chain.tscn" id="4_o7odu"]
 [ext_resource type="AudioStream" uid="uid://dsme6o4d883t1" path="res://resources/sfx/Shoot.ogg" id="4_x0qk7"]
+[ext_resource type="AudioStream" uid="uid://enkvrqgdymh0" path="res://resources/sfx/Jump.wav" id="4_yxf0r"]
 [ext_resource type="PackedScene" uid="uid://5atpqa3xbsgp" path="res://scenes/ui/lose_condition.tscn" id="5_2vwn8"]
+[ext_resource type="AudioStream" uid="uid://dtivf5g1xcho0" path="res://resources/sfx/Death.wav" id="5_5fqql"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3kqwq"]
 radius = 28.0
@@ -260,6 +262,15 @@ vframes = 7
 visible = false
 position = Vector2(1, 5)
 shape = SubResource("CapsuleShape2D_3kqwq")
+
+[node name="JumpSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_yxf0r")
+attenuation = 4.28709
+bus = &"SFX"
+
+[node name="DeathSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_5fqql")
+bus = &"SFX"
 
 [node name="AudioShoot" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_x0qk7")
