@@ -52,7 +52,8 @@ var credits = [
 	],[
 		"Backgrounds",
 		"Lava background by Ansimuz",
-		"Pause/lobby/menu background by Pukahuna"
+		"Menu/lobby background by Pukahuna",
+		"Pause background by Kirokaze Pixel"
 	],[
 		"Tilesets",
 		"Top Down lava by BeyonderBoy",
