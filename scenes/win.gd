@@ -12,7 +12,6 @@ func _ready():
 func _on_next_level():
 	#Next Level
 	change_to_tutorial_scene.rpc()
-	LevelManager.load_next_level()
 
 func _on_main_menu_pressed():
 	get_tree().change_scene_to_file("res://scenes/main_menu/main_menu.tscn")
@@ -20,6 +19,6 @@ func _on_main_menu_pressed():
 func _on_quit_pressed():
 	get_tree().quit()
 
-@rpc("any_peer", "reliable")
+@rpc("any_peer", "call_local", "reliable")
 func change_to_tutorial_scene():
 	LevelManager.load_next_level()

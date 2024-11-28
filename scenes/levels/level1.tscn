@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=4 uid="uid://t3eh8speg7nc"]
+[gd_scene load_steps=16 format=4 uid="uid://t3eh8speg7nc"]
 
 [ext_resource type="Script" path="res://scenes/levels/level.gd" id="1_1nde1"]
 [ext_resource type="Texture2D" uid="uid://ctymrk03wu33k" path="res://resources/tilemap/freelavatileset-Sheet.png" id="2_ke43v"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://b0yg0svmnursq" path="res://scenes/door/door.tscn" id="5_jx1vy"]
 [ext_resource type="PackedScene" uid="uid://bhhe2dlo7jpo" path="res://scenes/entity/player1/player_1.tscn" id="6_2kk6g"]
 [ext_resource type="PackedScene" uid="uid://cjbpryim23bh" path="res://scenes/entity/player2/player_2.tscn" id="7_0yvyi"]
+[ext_resource type="PackedScene" uid="uid://c7eqeihc2fl5n" path="res://scenes/ui/pause.tscn" id="9_ywn2u"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_r73m2"]
 texture = ExtResource("2_ke43v")
@@ -1808,3 +1809,5 @@ position = Vector2(1998, 367)
 
 [node name="Player2" parent="Players" instance=ExtResource("7_0yvyi")]
 position = Vector2(1447, 369)
+
+[node name="Pause" parent="." instance=ExtResource("9_ywn2u")]

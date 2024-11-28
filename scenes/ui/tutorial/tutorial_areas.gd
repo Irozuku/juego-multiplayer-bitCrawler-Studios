@@ -1,7 +1,7 @@
 extends Area2D
 
 var tutorial_texts = {
-	"Area1": ["Use ", "res://resources/ui/awsd_light.png", " to move and ", "res://resources/ui/space_light.png", " to jump."],
+	"Area1": ["Use ", "res://resources/ui/a_key_light.png", "res://resources/ui/d_light.png", " to move and ", "res://resources/ui/space_light.png", " to jump."],
 	"Area2": ["You can't jump very high on your own.", "Hammer can perform a high jump by pressing ", "res://resources/ui/k_light.png", " or ", "res://resources/ui/right_mouse_button_light.png", "If Hook is close, they'll jump higher too!"],
 	"Area3": ["The ceiling here looks different.", "Hook can grab onto it and swing across using ", "res://resources/ui/left_mouse_button_light.png"],
 	"Area4": ["Activate the hook again with ", "res://resources/ui/left_mouse_button_light.png", " to pull Hammer across."],
