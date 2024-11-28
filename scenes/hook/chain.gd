@@ -55,7 +55,6 @@ func _physics_process(_delta: float) -> void:
 		$Tip.global_position = tip	# The player might have moved and thus updated the position of the tip -> reset it
 		if to_local(tip).length() >= MAX_LENGTH:
 			release()
-		
 		if flying:
 			# `if move_and_collide()` always moves, but returns true if we did collide
 			var collider = $Tip.move_and_collide(direction * SPEED)
@@ -67,10 +66,14 @@ func _physics_process(_delta: float) -> void:
 					player_hooked = true
 					player_hooked_timer.start()
 				hooked = true	# Got something!
-				if not audio.is_playing():
-					audio.play()
+				rpc("play_sfx")
 				flying = false	# Not flying anymore
 		tip = $Tip.global_position	# set `tip` as starting position for next frame
 
 func _on_player_hooked_timer_timeout() -> void:
 	release()
+
+@rpc("any_peer", "call_local", "reliable")
+func play_sfx() -> void:
+	if not audio.is_playing():
+		audio.play()
