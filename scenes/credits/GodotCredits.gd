@@ -52,11 +52,13 @@ var credits = [
 	],[
 		"Backgrounds",
 		"Lava background by Ansimuz",
+		"Pause/lobby/menu background by Pukahuna"
 	],[
 		"Tilesets",
 		"Top Down lava by BeyonderBoy",
 		"Moten lava by TheConceptofChris",
-		"Sungeon platformer by RottingPixels"
+		"Sungeon platformer by RottingPixels",
+		"Platforms by Szadi art."
 	],[
 		"Icons & Fonts",
 		"Check mark icon by Delapouite",
