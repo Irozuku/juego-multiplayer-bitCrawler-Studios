@@ -114,12 +114,13 @@ func prepare_high_jump():
 	animation_tree.set("parameters/conditions/highJump", true)
 
 func superjump() -> void:
-	if partner:
-		partner.make_superjump()
-	velocity.y = -superjump_speed
-	is_jumping = true
-	_send_jump_action(superjump_speed)
-	rpc("play_superjump")
+	if is_on_floor():
+		if partner:
+			partner.make_superjump()
+		velocity.y = -superjump_speed
+		is_jumping = true
+		_send_jump_action(superjump_speed)
+		rpc("play_superjump")
 	jump_queued = false
 
 func _on_jump_timer_timeout() -> void:
