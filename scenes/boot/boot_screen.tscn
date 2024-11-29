@@ -1,0 +1,65 @@
+[gd_scene load_steps=6 format=3 uid="uid://dq7efly2rlnjy"]
+
+[ext_resource type="Script" path="res://scenes/boot/boot_screen.gd" id="1_fe6qi"]
+[ext_resource type="Texture2D" uid="uid://g6c5bxcxyqa1" path="res://resources/boot/Logo.png" id="2_5hm8p"]
+
+[sub_resource type="Animation" id="Animation_bxwus"]
+resource_name = "BootAnim"
+length = 2.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LogoDevs:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 9, 8, 7, 6, 5, 4, 3, 2, 0]
+}
+
+[sub_resource type="Animation" id="Animation_nnp8y"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LogoDevs:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4ooms"]
+_data = {
+"BootAnim": SubResource("Animation_bxwus"),
+"RESET": SubResource("Animation_nnp8y")
+}
+
+[node name="BootScreen" type="Node2D"]
+script = ExtResource("1_fe6qi")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0.141176, 0.141176, 0.141176, 1)
+
+[node name="LogoDevs" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(578, 376)
+scale = Vector2(4, 4)
+texture = ExtResource("2_5hm8p")
+hframes = 3
+vframes = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_4ooms")
+}
+autoplay = "BootAnim"
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
